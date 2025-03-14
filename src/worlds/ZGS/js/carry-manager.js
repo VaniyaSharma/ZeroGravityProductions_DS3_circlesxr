@@ -91,6 +91,59 @@ AFRAME.registerComponent("emit-positionlocked", {
       history.pushState({}, null, urlParams);
       // window.location.search = urlParams; //This one reloads the page :(
       console.log("Carry set to off!");
+
+      changeEnvironment();
     });
   },
 });
+
+//Only for Beta, Remove if needed 
+let environmentChanged = false; // Flag to track function execution
+
+function changeEnvironment() {
+  if (environmentChanged) {
+    console.log("changeEnvironment has already been executed.");
+    return; // Exit the function if it has already been executed
+  }
+
+  environmentChanged = true; // Set the flag to true upon first execution
+
+  console.log("changeEnvironment function called."); // Debugging log
+
+  // Get the A-Frame scene
+  const scene = document.querySelector('a-scene');
+  if (!scene) {
+    console.error("Scene not found!");
+    return;
+  }
+
+  // Create a new environment entity with desired attributes
+  let newEnvironment = document.createElement('a-entity');
+  newEnvironment.setAttribute('environment', {
+    preset: 'forest',
+    groundColor: '#F4A460',
+    skyType: 'none',
+    skyColor: '#87CEEB',
+    horizonColor: '#FFD27F',
+    fog: 0.5,
+    groundTexture: 'walkernoise',
+    groundColor2: '#2E8B57',
+    grid: 'none'
+  });
+
+  // Set initial position off-screen
+  newEnvironment.setAttribute('position', '0 -13 0');
+
+  // Append to scene
+  scene.appendChild(newEnvironment);
+
+  // Animate position to bring it into view
+  newEnvironment.setAttribute('animation', {
+    property: 'position',
+    to: '0 0.12 0',
+    dur: 2000,
+    easing: 'linear'
+  });
+
+  console.log("Environment changed successfully.");
+}
