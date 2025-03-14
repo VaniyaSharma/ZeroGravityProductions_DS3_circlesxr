@@ -2,6 +2,7 @@
 // In any scene you want this to work, add an empty item with the script:
 // "<a-entity id="GameManager" carry-manager></a-entity>"
 // TODO - implementation of carrying the seed
+// Anthony's recommendation for stopgap - set the portal &carry value manually for now.
 AFRAME.registerComponent("carry-manager", {
   schema: {},
   init() {
@@ -97,7 +98,7 @@ AFRAME.registerComponent("emit-positionlocked", {
   },
 });
 
-//Only for Beta, Remove if needed 
+//Only for Beta, Remove if needed
 let environmentChanged = false; // Flag to track function execution
 
 function changeEnvironment() {
@@ -111,38 +112,38 @@ function changeEnvironment() {
   console.log("changeEnvironment function called."); // Debugging log
 
   // Get the A-Frame scene
-  const scene = document.querySelector('a-scene');
+  const scene = document.querySelector("a-scene");
   if (!scene) {
     console.error("Scene not found!");
     return;
   }
 
   // Create a new environment entity with desired attributes
-  let newEnvironment = document.createElement('a-entity');
-  newEnvironment.setAttribute('environment', {
-    preset: 'forest',
-    groundColor: '#F4A460',
-    skyType: 'none',
-    skyColor: '#87CEEB',
-    horizonColor: '#FFD27F',
+  let newEnvironment = document.createElement("a-entity");
+  newEnvironment.setAttribute("environment", {
+    preset: "forest",
+    groundColor: "#F4A460",
+    skyType: "none",
+    skyColor: "#87CEEB",
+    horizonColor: "#FFD27F",
     fog: 0.5,
-    groundTexture: 'walkernoise',
-    groundColor2: '#2E8B57',
-    grid: 'none'
+    groundTexture: "walkernoise",
+    groundColor2: "#2E8B57",
+    grid: "none",
   });
 
   // Set initial position off-screen
-  newEnvironment.setAttribute('position', '0 -13 0');
+  newEnvironment.setAttribute("position", "0 -13 0");
 
   // Append to scene
   scene.appendChild(newEnvironment);
 
   // Animate position to bring it into view
-  newEnvironment.setAttribute('animation', {
-    property: 'position',
-    to: '0 0.12 0',
+  newEnvironment.setAttribute("animation", {
+    property: "position",
+    to: "0 0.12 0",
     dur: 2000,
-    easing: 'linear'
+    easing: "linear",
   });
 
   console.log("Environment changed successfully.");
