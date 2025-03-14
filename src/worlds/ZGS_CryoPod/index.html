@@ -16,8 +16,10 @@
        <!-- 360 -->
        <img id='link_1_360'        src='/global/images/ZGS_room1.jpg' crossorigin="anonymous">
 
-      <a-asset-item id="enviro-gltf"    src="/worlds/ZGS/assets/House01_SIZETEST.glb" response-type="arraybuffer"></a-asset-item>
-
+      <a-asset-item id="enviro-gltf"    src="assets/Cryo-Walls.glb" response-type="arraybuffer"></a-asset-item>
+      <a-asset-item id="cryoPods_glb"    src="assets/Cryo-Props.glb" response-type="arraybuffer"></a-asset-item>
+      
+      <a-asset-item id="nav_gltf" src="assets/Cryo-NavMesh.glb" crossorigin="anonymous"></a-asset-item>
       <!-- Circles' built-in assets [REQUIRED] -->
       <circles-assets/>
     </a-assets>
@@ -32,9 +34,18 @@
      <a-entity
         gltf-model="#enviro-gltf"
         shadow="receive: true; cast: true"
-        scale = "0.006 0.006 0.006"
+        
+        ></a-entity>
+
+        <a-entity
+        gltf-model="#cryoPods_glb"
+        shadow="receive: true; cast: true"
+       
         ></a-entity>
     <a-entity environment="preset:yavapai"></a-entity>
+
+    <a-entity position="0 0 0" id="navmesh" gltf-model="#nav_gltf" visible='true' nav-mesh></a-entity>
+
 
   </a-scene>
 
