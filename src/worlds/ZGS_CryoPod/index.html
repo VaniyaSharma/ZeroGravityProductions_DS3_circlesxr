@@ -1,0 +1,44 @@
+<html>
+<head>
+  <!-- Circles' head scripts [REQUIRED] -->
+  <circles-start-scripts/>
+
+  <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+</head>
+<body>
+  <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
+  <circles-start-ui/>
+
+  <!-- a-scene with 'circles-properties' component [REQUIRED] -->
+  <a-scene circles_scene_properties>
+    <a-assets>
+
+       <!-- 360 -->
+       <img id='link_1_360'        src='/global/images/ZGS_room1.jpg' crossorigin="anonymous">
+
+      <a-asset-item id="enviro-gltf"    src="/worlds/ZGS/assets/House01_SIZETEST.glb" response-type="arraybuffer"></a-asset-item>
+
+      <!-- Circles' built-in assets [REQUIRED] -->
+      <circles-assets/>
+    </a-assets>
+
+    <!-- Circles' built-in manager and avatar [REQUIRED] -->
+    <circles-manager-avatar/>
+
+     <!-- links to other worlds -->
+
+    <!-- environment -->
+    <!-- the environment -->
+     <a-entity
+        gltf-model="#enviro-gltf"
+        shadow="receive: true; cast: true"
+        scale = "0.006 0.006 0.006"
+        ></a-entity>
+    <a-entity environment="preset:yavapai"></a-entity>
+
+  </a-scene>
+
+  <!-- Circles' end scripts [REQUIRED] -->
+  <circles-end-scripts/>
+ </body>
+</html>
