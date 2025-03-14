@@ -66,4 +66,7 @@ testingArea/
 //ignore visual studio workspace
 *.code-workspace
 
+ngrok.exe
+
 ### end global ignore
+
