@@ -4,6 +4,7 @@
   <circles-start-scripts/>
 
   <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+  <script src="js/pickuplogic.js"></script>
 </head>
 <body>
   <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
@@ -20,6 +21,7 @@
       <a-asset-item id="pond_glb"    src="assets/pond.glb" response-type="arraybuffer"></a-asset-item>
       <a-asset-item id="nav_gltf" src="assets/NavMesh.glb" crossorigin="anonymous"></a-asset-item>   
       <a-asset-item id="pedestal_glb" src ="assets/pedestal.glb" crossorigin = "anonymous"></a-asset-item>
+      <a-asset-item id="seed_glb" src="assets/Seed.glb" crossorigin="anonymous"></a-asset-item>
       <!-- Circles' built-in assets [REQUIRED] -->
       <circles-assets/>
     </a-assets>
@@ -43,9 +45,23 @@
     <!-- the environment -->
 
     <a-entity
+        id="seed"
+        gltf-model="#seed_glb"
+        position="0 1 -2"
+        scale="0.2 0.2 0.2"
+        circles-pickup-object="animate:false;"
+        circles-interactive-object="type:highlight;" 
+        circles-pickup-networked
+    ></a-entity>
+
+    <a-entity
         gltf-model="#pedestal_glb"
         shadow="receive: true; cast: true"
+<<<<<<< Updated upstream
         position = "0 0.614 1.147"
+=======
+        position="0 0.260 0"
+>>>>>>> Stashed changes
         ></a-entity>
 
      <a-entity
@@ -55,6 +71,7 @@
         ></a-entity>
     <a-entity environment="preset:yavapai"></a-entity>
 
+<<<<<<< Updated upstream
     <a-entity
         gltf-model="#pond_glb"
         shadow="receive: true; cast: true"
@@ -64,6 +81,10 @@
     <a-entity environment="preset:yavapai"></a-entity>
 
     <a-entity position="0 0 0" id="navmesh" gltf-model="#nav_gltf" visible='false' nav-mesh></a-entity>
+=======
+    <!--Nav-mesh-->
+    <a-entity position="0 0.25 0" id="navmesh" gltf-model="#nav_gltf" visible='true' nav-mesh></a-entity>
+>>>>>>> Stashed changes
 
   </a-scene>
 
