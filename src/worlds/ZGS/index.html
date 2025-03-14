@@ -1,0 +1,64 @@
+<html>
+<head>
+  <!-- Circles' head scripts [REQUIRED] -->
+  <circles-start-scripts/>
+
+  <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+</head>
+<body>
+  <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
+  <circles-start-ui/>
+
+  <!-- a-scene with 'circles-properties' component [REQUIRED] -->
+  <a-scene circles_scene_properties>
+    <a-assets>
+
+       <!-- 360 -->
+       <img id='link_1_360'  src='/global/images/ZGS_room1.jpg' crossorigin="anonymous">
+
+      <a-asset-item id="enviro-gltf"  src="/worlds/ZGS/assets/HousesUntextured.glb" response-type="arraybuffer"></a-asset-item>
+      <a-asset-item id="nav_gltf" src="assets/NavMesh.glb" crossorigin="anonymous"></a-asset-item>   
+      <a-asset-item id="pedestal_glb" src ="assets/pedestal.glb" crossorigin = "anonymous"></a-asset-item>
+      <!-- Circles' built-in assets [REQUIRED] -->
+      <circles-assets/>
+    </a-assets>
+
+    <!-- Circles' built-in manager and avatar [REQUIRED] -->
+    <circles-manager-avatar/>
+
+     <!-- links to other worlds -->
+     <a-entity id="link_1"
+     position="-5.946 1.220 -6.667" rotation="0 -51.459 0" scale="0.100 0.950 1.010"
+     circles-portal="img_src:#link_1_360; title_text:Cryo-pods; link_url:/w/ZGS_CryoPod"
+     
+     shadow></a-entity>
+     <a-entity position="-7.164 0.596 -5.705" rotation = " 5.002 43.491 -0.975" scale="0.604 0.604 0.604">
+      <a-plane color="#333" height="1" width="3" material="opacity: 0.8" shadow></a-plane>
+      <a-text value="Welcome to our Cryo-Pod experience!" color="#fff" align="center" position="0 0 0.01" width="2.8"></a-text>
+    </a-entity>
+    
+
+    <!-- environment -->
+    <!-- the environment -->
+
+    <a-entity
+        gltf-model="#pedestal_glb"
+        shadow="receive: true; cast: true"
+        scale = "0.006 0.006 0.006 "
+        ></a-entity>
+
+     <a-entity
+        gltf-model="#enviro-gltf"
+        shadow="receive: true; cast: true"
+        scale = "1 1 1 "
+        ></a-entity>
+    <a-entity environment="preset:yavapai"></a-entity>
+
+    <a-entity position="0 0.25 0" id="navmesh" gltf-model="#nav_gltf" visible='true' nav-mesh></a-entity>
+
+  </a-scene>
+
+  <!-- Circles' end scripts [REQUIRED] -->
+  <circles-end-scripts/>
+ </body>
+</html>
