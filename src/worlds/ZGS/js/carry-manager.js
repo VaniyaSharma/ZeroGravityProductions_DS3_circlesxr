@@ -8,7 +8,7 @@ AFRAME.registerComponent("carry-manager", {
     console.log("Carry script init");
 
     const CONTEXT_AF = this;
-    const params_orig = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
 
     //ripped from Anthony's source code! thanks tony <3
     //source: https://gomakethings.com/getting-all-query-string-values-from-a-url-with-vanilla-js/
@@ -45,7 +45,7 @@ AFRAME.registerComponent("carry-manager", {
     // CONTEXT_AF.addEventListener("putDownSeed", function () {
     //   //TODO - Change this to be attached to the pond? Or player?
     //   // Whichever fires the event of putting down the seed
-    //   params_orig.set("carry", "off"); //Changes the param to be "carry=off" so we don't get the seed in the next level
+    //   urlParams.set("carry", "off"); //Changes the param to be "carry=off" so we don't get the seed in the next level
     // });
 
     // Alternatively, from wardrobe html
@@ -56,5 +56,41 @@ AFRAME.registerComponent("carry-manager", {
     //         //portalElem.setAttribute('circles-portal', {title_text:urlArr[urlArr.length-1], link_url:urlParams.get('last_route')})
     //         // DO SEED THING HERE
     //       }
+  },
+});
+
+// Component to emit 'pickedup' event
+AFRAME.registerComponent("emit-pickedup", {
+  init: function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    this.el.addEventListener("click", () => {
+      const seed = document.querySelector("#seed");
+      seed.emit("pickedup", { message: "Seed has been picked up!" });
+      console.log("Picked Up event emitted.");
+      urlParams.set("carry", "seedC");
+      // replace current URL with newURL
+      history.pushState({}, null, urlParams);
+      // window.location.search = urlParams; //This one reloads the page :(
+      console.log("Carry set to seedC!");
+    });
+  },
+});
+
+// Component to emit 'positionLocked' event
+AFRAME.registerComponent("emit-positionlocked", {
+  init: function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    this.el.addEventListener("click", () => {
+      const seed = document.querySelector("#seed");
+      seed.emit("positionLocked", {
+        message: "Seed position has been locked!",
+      });
+      console.log("Position Locked event emitted.");
+      urlParams.set("carry", "off");
+      // replace current URL with newURL
+      history.pushState({}, null, urlParams);
+      // window.location.search = urlParams; //This one reloads the page :(
+      console.log("Carry set to off!");
+    });
   },
 });
