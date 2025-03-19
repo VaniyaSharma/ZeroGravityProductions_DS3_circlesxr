@@ -18,7 +18,16 @@ AFRAME.registerComponent("carry-manager", {
     //get seed
     CONTEXT_AF.seed = scene.querySelector("#seed");
 
-    CONTEXT_AF.seed.addEventListener("click", console.log("SEED CLICK")); //WHY ISN'T IT WORKING?
+    // CONTEXT_AF.seed.addEventListener("click", console.log("SEED CLICK")); //WHY ISN'T IT WORKING?
+
+    // CONTEXT_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, wsReadyFunc);
+
+    // For picking up in cryopod experience - event listener for clicking the seed, or using the following event from circles-pickup-object
+    // CONTEXT_AF.el.emit(CIRCLES.EVENTS.PICKUP_THIS_OBJECT, {sendNetworkEvent:sendNetworkEvent}, true);
+
+    // setTimeout(function () {
+    //   CONTEXT_AF.seed.click();
+    // }, 3000);
 
     const params_orig = new URLSearchParams(window.location.search);
 
@@ -43,17 +52,15 @@ AFRAME.registerComponent("carry-manager", {
         //DO SEED STUFF HERE :)
         console.log("Carry component is on!");
         CONTEXT_AF.setSeedURL(params["carry"]);
-      } else if (params["carry"] === "seedA") {
+      } else if (
+        params["carry"] === "seedA" ||
+        params["carry"] === "seedB" ||
+        params["carry"] === "seedC"
+      ) {
         console.log("Carry component is: " + params["carry"]);
-        CONTEXT_AF.seed.emit("click");
-        //pickup(true, CONTEXT_AF.seed);
-        console.log("Seed click emitted: ", CONTEXT_AF.seed);
-        CONTEXT_AF.setSeedURL(params["carry"]);
-      } else if (params["carry"] === "seedB") {
-        console.log("Carry component is: " + params["carry"]);
-        CONTEXT_AF.setSeedURL(params["carry"]);
-      } else if (params["carry"] === "seedC") {
-        console.log("Carry component is: " + params["carry"]);
+        setTimeout(function () {
+          CONTEXT_AF.seed.click();
+        }, 3000);
         CONTEXT_AF.setSeedURL(params["carry"]);
       } else if (params["carry"] === "test") {
         console.log("Carry component is: " + params["carry"]);
