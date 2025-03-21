@@ -32,8 +32,7 @@ AFRAME.registerComponent("carry-manager", {
     const params_orig = new URLSearchParams(window.location.search);
 
     //ripped from Anthony's source code! thanks anthony <3
-    
-    
+
     //source: https://gomakethings.com/getting-all-query-string-values-from-a-url-with-vanilla-js/
     CONTEXT_AF.getParams = function (url) {
       var params = {};
@@ -60,6 +59,16 @@ AFRAME.registerComponent("carry-manager", {
         params["carry"] === "seedC"
       ) {
         console.log("Carry component is: " + params["carry"]);
+        // try on load event
+        // if (CIRCLES.isCirclesWebsocketReady()) {
+        //   CONTEXT_AF.seed.click()
+        // }
+        // CONTEXT_AF.el.sceneEl.addEventListener(
+        //   CIRCLES.EVENTS.OBJECT_NETWORKED_ATTACHED,
+        //   CONTEXT_AF.seed.click()
+        // );
+
+        // else
         setTimeout(function () {
           CONTEXT_AF.seed.click();
         }, 3000);
@@ -90,5 +99,4 @@ AFRAME.registerComponent("carry-manager", {
   // let url = new URL(window.location.href);
   // url.searchParams.set('fire', (turnOn) ? 'on' : 'off');
   // history.replaceState(history.state, '', url.href);
-
 });
