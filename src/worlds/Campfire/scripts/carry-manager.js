@@ -42,11 +42,11 @@ AFRAME.registerComponent("carry-manager", {
     }
 
     //Make sure we take the carry param out when we put down the seed
-    CONTEXT_AF.addEventListener("putDownSeed", function () {
-      //TODO - Change this to be attached to the pond? Or player?
-      // Whichever fires the event of putting down the seed
-      params_orig.set("carry", "off"); //Changes the param to be "carry=off" so we don't get the seed in the next level
-    });
+    // CONTEXT_AF.addEventListener("putDownSeed", function () {
+    //   //TODO - Change this to be attached to the pond? Or player?
+    //   // Whichever fires the event of putting down the seed
+    //   params_orig.set("carry", "off"); //Changes the param to be "carry=off" so we don't get the seed in the next level
+    // });
 
     // Alternatively, from wardrobe html
     // const urlParams = new URLSearchParams(window.location.search);

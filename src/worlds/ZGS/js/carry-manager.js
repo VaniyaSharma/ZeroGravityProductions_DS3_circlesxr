@@ -1,16 +1,39 @@
 // /add-all-test-data
 // In any scene you want this to work, add an empty item with the script:
 // "<a-entity id="GameManager" carry-manager></a-entity>"
-// TODO - implementation of carrying the seed
+// Update: now the URL passing works. But...
+// TODO - implementation of carrying the seed automagically on load when carry=on or seedA, seedB etc
+// TODO - picking up seed makes carry=on, dropping it makers carry=off, etc...
+// TODO - make sure one character carries the seed at a time
+
 AFRAME.registerComponent("carry-manager", {
   schema: {},
   init() {
     console.log("Carry script init");
 
     const CONTEXT_AF = this;
+
+    const scene = document.querySelector("a-scene");
+
+    //get seed
+    CONTEXT_AF.seed = scene.querySelector("#seed");
+
+    // CONTEXT_AF.seed.addEventListener("click", console.log("SEED CLICK")); //WHY ISN'T IT WORKING?
+
+    // CONTEXT_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, wsReadyFunc);
+
+    // For picking up in cryopod experience - event listener for clicking the seed, or using the following event from circles-pickup-object
+    // CONTEXT_AF.el.emit(CIRCLES.EVENTS.PICKUP_THIS_OBJECT, {sendNetworkEvent:sendNetworkEvent}, true);
+
+    // setTimeout(function () {
+    //   CONTEXT_AF.seed.click();
+    // }, 3000);
+
     const params_orig = new URLSearchParams(window.location.search);
 
-    //ripped from Anthony's source code! thanks tony <3
+    //ripped from Anthony's source code! thanks anthony <3
+    
+    
     //source: https://gomakethings.com/getting-all-query-string-values-from-a-url-with-vanilla-js/
     CONTEXT_AF.getParams = function (url) {
       var params = {};
@@ -30,31 +53,42 @@ AFRAME.registerComponent("carry-manager", {
       if (params["carry"] === "on") {
         //DO SEED STUFF HERE :)
         console.log("Carry component is on!");
-      } else if (params["carry"] === "seedA") {
+        CONTEXT_AF.setSeedURL(params["carry"]);
+      } else if (
+        params["carry"] === "seedA" ||
+        params["carry"] === "seedB" ||
+        params["carry"] === "seedC"
+      ) {
         console.log("Carry component is: " + params["carry"]);
-      } else if (params["carry"] === "seedB") {
+        setTimeout(function () {
+          CONTEXT_AF.seed.click();
+        }, 3000);
+        CONTEXT_AF.setSeedURL(params["carry"]);
+      } else if (params["carry"] === "test") {
         console.log("Carry component is: " + params["carry"]);
-      } else if (params["carry"] === "seedC") {
-        console.log("Carry component is: " + params["carry"]);
+        CONTEXT_AF.setSeedURL("tested");
       } else {
         console.log("Carry component is off. :(");
+        CONTEXT_AF.setSeedURL("off");
       }
     }
-
-    //Make sure we take the carry param out when we put down the seed
-    // CONTEXT_AF.addEventListener("putDownSeed", function () {
-    //   //TODO - Change this to be attached to the pond? Or player?
-    //   // Whichever fires the event of putting down the seed
-    //   params_orig.set("carry", "off"); //Changes the param to be "carry=off" so we don't get the seed in the next level
-    // });
-
-    // Alternatively, from wardrobe html
-    // const urlParams = new URLSearchParams(window.location.search);
-    //       if (urlParams.has('carry')) {
-    //         const portalElem = document.querySelector('#portal');
-    //         const carryVal = urlParams.get('carry').split('/');  //get last bit of this array for the seed name
-    //         //portalElem.setAttribute('circles-portal', {title_text:urlArr[urlArr.length-1], link_url:urlParams.get('last_route')})
-    //         // DO SEED THING HERE
-    //       }
   },
+  setSeedURL: function (seedID) {
+    const CONTEXT_AF = this;
+
+    // if (seedID=="") {
+    // } else {
+    // }
+    // Seed pickup logic here?
+
+    //add this property to allow the seed to still be in hand when coming back
+    let url = new URL(window.location.href);
+    url.searchParams.set("carry", seedID);
+    history.replaceState(history.state, "", url.href);
+  },
+  // //add this property to allow the fire to still be on when coming back
+  // let url = new URL(window.location.href);
+  // url.searchParams.set('fire', (turnOn) ? 'on' : 'off');
+  // history.replaceState(history.state, '', url.href);
+
 });
