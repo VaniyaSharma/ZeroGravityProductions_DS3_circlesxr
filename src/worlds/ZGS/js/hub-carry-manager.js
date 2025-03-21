@@ -9,7 +9,7 @@
 AFRAME.registerComponent("carry-manager", {
   schema: {},
   init() {
-    console.log("Carry script init");
+    console.log("Hub carry script init");
 
     const CONTEXT_AF = this;
 
@@ -80,6 +80,24 @@ AFRAME.registerComponent("carry-manager", {
         console.log("Carry component is off. :(");
         CONTEXT_AF.setSeedURL("off");
       }
+
+      //event listener for picking up the seed.
+      CONTEXT_AF.seed.addEventListener(
+        CIRCLES.EVENTS.PICKUP_THIS_OBJECT,
+        function () {
+          console.log("Seed picked up!");
+          CONTEXT_AF.setSeedURL("seedA");
+        }
+      );
+
+      //event listener for releasing the seed.
+      CONTEXT_AF.seed.addEventListener(
+        CIRCLES.EVENTS.RELEASE_THIS_OBJECT,
+        function () {
+          console.log("Seed released!");
+          CONTEXT_AF.setSeedURL("off");
+        }
+      );
     }
   },
   setSeedURL: function (seedID) {
