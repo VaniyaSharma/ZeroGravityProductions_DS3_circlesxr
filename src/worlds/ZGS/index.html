@@ -26,7 +26,8 @@
           response-type="arraybuffer"
         ></a-asset-item>
         <a-asset-item
-          id="pond_glb"
+          id="
+              _glb"
           src="assets/pond.glb"
           response-type="arraybuffer"
         ></a-asset-item>
@@ -48,6 +49,9 @@
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets />
       </a-assets>
+
+      <!-- Carry manager script! -->
+      <a-entity id="GameManager" carry-manager></a-entity>
 
       <!-- Circles' built-in manager and avatar [REQUIRED] -->
       <circles-manager-avatar />
@@ -81,8 +85,6 @@
           width="2.8"
         ></a-text>
       </a-entity>
-
-      <a-entity id="GameManager" carry-manager></a-entity>
 
       <!-- environment -->
       <!-- the environment -->

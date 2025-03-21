@@ -4,6 +4,7 @@
     <circles-start-scripts />
 
     <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+    <script src="scripts/carry-manager.js"></script>
   </head>
   <body>
     <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
@@ -39,6 +40,8 @@
         <circles-assets />
       </a-assets>
 
+      <!-- Carry manager script! -->
+      <a-entity id="GameManager" carry-manager></a-entity>
       <!-- Circles' built-in manager and avatar [REQUIRED] -->
       <circles-manager-avatar />
 

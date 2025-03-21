@@ -32,6 +32,8 @@ AFRAME.registerComponent("carry-manager", {
     const params_orig = new URLSearchParams(window.location.search);
 
     //ripped from Anthony's source code! thanks anthony <3
+    
+    
     //source: https://gomakethings.com/getting-all-query-string-values-from-a-url-with-vanilla-js/
     CONTEXT_AF.getParams = function (url) {
       var params = {};
@@ -88,4 +90,5 @@ AFRAME.registerComponent("carry-manager", {
   // let url = new URL(window.location.href);
   // url.searchParams.set('fire', (turnOn) ? 'on' : 'off');
   // history.replaceState(history.state, '', url.href);
+
 });
