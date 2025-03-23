@@ -16,14 +16,29 @@ AFRAME.registerComponent('position-locker', {
         el.object3D.getWorldPosition(currentPosition);
     
         if (currentPosition.distanceTo(targetPosition) <= this.data.threshold) {
-          // Lock position
-          el.setAttribute('position', this.data.target);
-          // Emit custom event
-          el.emit('positionLocked', {position: this.data.target});
-          // Optionally, remove this component to stop further checks
-          el.removeAttribute('position-locker');
-          el.removeAttribute('circles-pickup-networked');
-          el.removeAttribute('circles-pickup-object');
+          // Only lock position if not already locked
+          if (!el.hasAttribute('position-locker')) {
+            // Lock position
+            el.setAttribute('position', this.data.target);
+            // Emit custom event
+            el.emit('positionLocked', { position: this.data.target });
+            // Remove pickup-related attributes
+            el.removeAttribute('circles-pickup-networked');
+            el.removeAttribute('circles-pickup-object');
+            // Mark as position locked
+            el.setAttribute('position-locker', true);
+            console.log("Position locked at target:", this.data.target);
+          }
+        } else {
+          // If the seed has moved out of threshold and was locked, re-add pickup attributes
+          if (el.hasAttribute('position-locker')) {
+            // Re-add the pickup attributes (assuming empty values are acceptable)
+            el.setAttribute('circles-pickup-networked', '');
+            el.setAttribute('circles-pickup-object', '');
+            // Remove the position-locked marker
+            el.removeAttribute('position-locker');
+            console.log("Seed moved out of threshold; pickup attributes re-added.");
+          }
         }
       }
       else if (circlesObjectWorld.pickedup === true) {
