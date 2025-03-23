@@ -51,7 +51,10 @@ function changeEnvironment() {
   let newEnvironment = document.createElement('a-entity');
   newEnvironment.setAttribute('environment', {
     preset: 'forest', 
-    groundColor:'#F4A460', 
+    groundColor:'#F4A460',
+    skyColor: '#87CEEB', 
+    horizonColor: '#FFD27F',
+    fog: '0.5',
     groundTexture: 'walkernoise',
     groundColor2: '#2E8B57',
     grid: 'none'

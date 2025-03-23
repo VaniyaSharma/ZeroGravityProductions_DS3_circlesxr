@@ -5,17 +5,29 @@ AFRAME.registerComponent('position-locker', {
     },
     tick: function () {
       const el = this.el;
-      const targetPosition = new THREE.Vector3(this.data.target.x, this.data.target.y, this.data.target.z);
-      const currentPosition = new THREE.Vector3();
-      el.object3D.getWorldPosition(currentPosition);
-  
-      if (currentPosition.distanceTo(targetPosition) <= this.data.threshold) {
-        // Lock position
-        el.setAttribute('position', this.data.target);
-        // Emit custom event
-        el.emit('positionLocked', {position: this.data.target});
-        // Optionally, remove this component to stop further checks
-        el.removeAttribute('position-locker');
+
+      // Get the circles-object-world attribute
+      const circlesObjectWorld = el.getAttribute('circles-object-world');
+
+      if (circlesObjectWorld && circlesObjectWorld.pickedup === false) {
+        const targetPosition = new THREE.Vector3(this.data.target.x, this.data.target.y, this.data.target.z);
+        
+        const currentPosition = new THREE.Vector3();
+        el.object3D.getWorldPosition(currentPosition);
+    
+        if (currentPosition.distanceTo(targetPosition) <= this.data.threshold) {
+          // Lock position
+          el.setAttribute('position', this.data.target);
+          // Emit custom event
+          el.emit('positionLocked', {position: this.data.target});
+          // Optionally, remove this component to stop further checks
+          el.removeAttribute('position-locker');
+          el.removeAttribute('circles-pickup-networked');
+          el.removeAttribute('circles-pickup-object');
+        }
+      }
+      else if (circlesObjectWorld.pickedup === true) {
+        console.log("Seed is currently picked up");
       }
     }
   });
