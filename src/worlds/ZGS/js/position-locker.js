@@ -1,10 +1,18 @@
 AFRAME.registerComponent('position-locker', {
     schema: {
-      target: {type: 'vec3', default: {x: 0.0, y: 1.464, z: 1.153}},
       threshold: {type: 'number', default: 0.1}
     },
     init: function () {
       this.isLocked = false;
+      this.colliderEl = null;
+
+      //Find the collider object
+      const scene = this.el.sceneEl;
+      this.colliderEl = scene.querySelector('[collider]');
+
+      if (!this.colliderEl) {
+        console.warn("No object with 'collider' attribute found in the scene.");
+      }
     },
     tick: function () {
       const el = this.el;
@@ -13,17 +21,23 @@ AFRAME.registerComponent('position-locker', {
       const circlesObjectWorld = el.getAttribute('circles-object-world');
 
       if (circlesObjectWorld) {    
-        const targetPosition = new THREE.Vector3(this.data.target.x, this.data.target.y, this.data.target.z);
+
+        if (!this.colliderEl) return; // Exit if no collider is found
+
+        const targetPosition = new THREE.Vector3();
+        this.colliderEl.object3D.getWorldPosition(targetPosition);
+
         const currentPosition = new THREE.Vector3();
         el.object3D.getWorldPosition(currentPosition);
+
         const distance = currentPosition.distanceTo(targetPosition);
 
         if (distance <= this.data.threshold && !this.isLocked && circlesObjectWorld.pickedup === false) {
           // Lock position
-          el.setAttribute('position', this.data.target);
+          el.setAttribute('position', targetPosition);
 
           // Emit custom event
-          el.emit('positionLocked', { position: this.data.target });
+          el.emit('positionLocked', { position: targetPosition });
 
           // Remove pickup-related attributes
           el.removeAttribute('circles-pickup-networked');
@@ -31,7 +45,7 @@ AFRAME.registerComponent('position-locker', {
 
           // Mark as position locked
           this.isLocked = true;
-          console.log("Position locked at target:", this.data.target);
+          console.log("Position locked at target:", targetPosition);
 
           // Re-add pickup attributes after a short delay
           setTimeout(() => {

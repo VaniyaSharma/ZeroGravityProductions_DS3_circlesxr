@@ -129,15 +129,23 @@
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
-        position-locker="target: 0.0 1.400 1.132; threshold: 0.3"
+        position-locker="threshold: 0.3"
         pickup-detector
       ></a-entity>
 
-      <a-entity
-        gltf-model="#pedestal_glb"
-        shadow="receive: true; cast: true"
-        position="0 0.614 1.147"
-      ></a-entity>
+      <a-entity id="pedestal_grp" position="0 0.614 1.147">
+        <a-entity
+          id="pedestal"
+          gltf-model="#pedestal_glb"
+          shadow="receive: true; cast: true"
+          position="0 0 0"
+        ></a-entity>
+        <a-entity
+          id="seed_collider"
+          position="1 0.850 0"
+          collider
+        ></a-entity>
+      </a-entity>
 
       <a-entity
         gltf-model="#enviro-gltf"
