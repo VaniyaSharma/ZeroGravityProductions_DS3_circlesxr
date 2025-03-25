@@ -9,7 +9,7 @@
 AFRAME.registerComponent("carry-manager", {
   schema: {},
   init() {
-    console.log("Cryo carry script init");
+    console.log("Cave carry script init");
 
     const CONTEXT_AF = this;
 
