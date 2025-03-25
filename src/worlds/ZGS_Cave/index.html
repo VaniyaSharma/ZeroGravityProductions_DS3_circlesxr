@@ -20,6 +20,26 @@
           crossorigin="anonymous"
         />
         <a-asset-item
+          id="diamond_glb"
+          src="assets/diamond-music.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="cube_glb"
+          src="assets/cube-music.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="sphere_glb"
+          src="assets/sphere-music.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="triangle_glb"
+          src="assets/triangle-music.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
           id="seed_glb"
           src="assets/Seed.glb"
           crossorigin="anonymous"
@@ -43,6 +63,44 @@
         shadow
       ></a-entity>
 
+      <!-- shapes -->
+
+      <a-entity
+        id="cube"
+        gltf-model="#cube_glb"
+        position="-2 1.6 -4"
+        circles-interactive-object="type:highlight;"
+        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
+      ></a-entity>
+
+      <a-entity
+        id="triangle"
+        gltf-model="#triangle_glb"
+        position="-1 1.6 -4"
+        circles-interactive-object="type:highlight;"
+        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
+      ></a-entity>
+
+      <a-entity
+        id="diamond"
+        gltf-model="#diamond_glb"
+        position="0 1.6 -4"
+        circles-interactive-object="type:outline;"
+        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
+      ></a-entity>
+
+      <a-entity
+        id="sphere"
+        gltf-model="#sphere_glb"
+        position="1 1.6 -4"
+        circles-interactive-object="type:scale;"
+        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
+      ></a-entity>
+
       <!-- seed! -->
 
       <a-entity
@@ -64,4 +122,6 @@
     <!-- Circles' end scripts [REQUIRED] -->
     <circles-end-scripts />
   </body>
+
+  <script src="scripts/melody-game.js"></script>
 </html>
