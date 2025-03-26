@@ -1,0 +1,11 @@
+{
+    "world": {
+        "name": "Sunrise, Suburbia",
+        "type": "hub",
+        "imgPath": "./profile.jpg",
+        "description_short": "Hub world neighbourhood.",
+        "description_long": "Participants gather around the neighbourhood.",
+        "tags": [ "hub", "ZGS", "suburbia"],
+        "supportedDevices": [ "mobile", "desktop", "hmd_3dof", "hmd_6dof" ]
+    }
+}
