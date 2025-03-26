@@ -61,9 +61,6 @@ AFRAME.registerComponent('position-locker', {
         console.log("Position unlocked. Can be locked again.");
         }
       }
-      if (circlesObjectWorld.pickedup === true) {
-        console.log("Seed is currently picked up");
-      }
     }
   });
 
