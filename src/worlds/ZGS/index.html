@@ -7,7 +7,7 @@
     <script src="js/pickuplogic.js"></script>
     <script src="js/position-locker.js"></script>
     <!-- <script src="js/testing.js"></script> -->
-    <script src="js/carry-manager.js"></script>
+    <script src="js/hub-carry-manager.js"></script>
   </head>
   <body>
     <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
@@ -52,6 +52,8 @@
         <circles-assets />
       </a-assets>
 
+      <<<<<<<<< Temporary merge branch 1
+      <!-- Carry manager script! -->
       <a-entity id="GameManager" carry-manager></a-entity>
 
       <!-- Circles' built-in manager and avatar [REQUIRED] -->
@@ -59,13 +61,23 @@
 
       <!-- links to other worlds -->
       <a-entity
-        id="link_1"
+        id="link_cryo"
         position="-5.946 1.220 -6.667"
         rotation="0 -51.459 0"
         scale="0.100 0.950 1.010"
         circles-portal="img_src:#link_1_360; title_text:Cryo-pods; link_url:/w/ZGS_CryoPod"
         shadow
       ></a-entity>
+
+      <a-entity
+        id="link_cave"
+        position="6.5 1.220 -5"
+        rotation="0 -150 0"
+        scale="0.100 0.950 1.010"
+        circles-portal="img_src:#link_1_360; title_text:Cave; link_url:/w/ZGS_Cave"
+        shadow
+      ></a-entity>
+
       <a-entity
         position="-7.164 0.596 -5.705"
         rotation=" 5.002 43.491 -0.975"
@@ -129,23 +141,45 @@
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
-        position-locker="threshold: 0.3"
+        position-locker="target: 0.0 1.400 1.132; threshold: 0.3"
         pickup-detector
       ></a-entity>
 
-      <a-entity id="pedestal_grp" position="0 0.614 1.147">
-        <a-entity
-          id="pedestal"
-          gltf-model="#pedestal_glb"
-          shadow="receive: true; cast: true"
-          position="0 0 0"
-        ></a-entity>
-        <a-entity
-          id="seed_collider"
-          position="0 0.850 0"
-          collider="threshold:0.3"
-        ></a-entity>
+      <!-- Picked Up Button -->
+      <a-entity
+        geometry="primitive: plane; width: 1; height: 0.5;"
+        material="color: green;"
+        position="-1 1 -3"
+        circles-button
+        emit-pickedup
+      >
+        <a-text
+          value="Trigger Picked Up"
+          align="center"
+          position="0 0 0.1"
+        ></a-text>
       </a-entity>
+
+      <!-- Position Locked Button -->
+      <a-entity
+        geometry="primitive: plane; width: 1; height: 0.5;"
+        material="color: blue;"
+        position="1 1 -3"
+        circles-button
+        emit-positionlocked
+      >
+        <a-text
+          value="Trigger Position Locked"
+          align="center"
+          position="0 0 0.1"
+        ></a-text>
+      </a-entity>
+
+      <a-entity
+        gltf-model="#pedestal_glb"
+        shadow="receive: true; cast: true"
+        position="0 0.614 1.147"
+      ></a-entity>
 
       <a-entity
         gltf-model="#enviro-gltf"
@@ -161,7 +195,6 @@
         scale="0.688 0.688 0.688 "
         position="0 0 1.132"
       ></a-entity>
-
       <a-entity
         position="0 0 0"
         id="navmesh"
