@@ -101,13 +101,14 @@ AFRAME.registerComponent('circles-add-camera-equipment', {
         const CONTROL_BUTTON_SIZE = 0.2;
         const CONTROL_BUTTON_OFFSET_X = 0.3;
         const CONTROL_BUTTON_OFFSET_Y = 0.45;
-        const CONTROLS_OFFSET_Y = -0.4;
+        const CONTROLS_OFFSET_Y = -0.055;
 
         //create object controls will toggle on when picking up an object
         let objectControls = document.createElement('a-entity');
         objectControls.setAttribute('id', 'object_controls');
         objectControls.setAttribute('position', {x:0.0, y:CONTROLS_OFFSET_Y, z:CIRCLES.CONSTANTS.CONTROLS_OFFSET_Z});
         objectControls.setAttribute('rotation', {x:0, y:0, z:0});
+        objectControls.setAttribute('scale', {x:0.3, y:0.3, z:0.3});
         avatarCam.appendChild(objectControls);
 
         //rotate button

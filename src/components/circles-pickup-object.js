@@ -92,6 +92,7 @@ AFRAME.registerComponent('circles-pickup-object', {
     const CONTEXT_AF  = (passedContext) ? passedContext : this;
     const data        = CONTEXT_AF.data;
     const SAME_DIFF   = 0.001;
+    const minY        = 0.635;
 
     //release
     CONTEXT_AF.origParent.object3D.attach(CONTEXT_AF.el.object3D); //using three's "attach" allows us to retain world transforms during pickup/release
@@ -100,7 +101,7 @@ AFRAME.registerComponent('circles-pickup-object', {
     const thisRot = {x:THREE.MathUtils.radToDeg(CONTEXT_AF.el.object3D.rotation.x), y:THREE.MathUtils.radToDeg(CONTEXT_AF.el.object3D.rotation.y), z:THREE.MathUtils.radToDeg(CONTEXT_AF.el.object3D.rotation.z)};
     const thisSca = {x:CONTEXT_AF.el.object3D.scale.x, y:CONTEXT_AF.el.object3D.scale.y, z:CONTEXT_AF.el.object3D.scale.z};
 
-    const dropPos  = (data.dropPosition.x < 100001.0) ? {x:data.dropPosition.x, y:data.dropPosition.y, z:data.dropPosition.z} : thisPos;
+    const dropPos  = (data.dropPosition.x < 100001.0) ? {x:data.dropPosition.x, y: Math.max(data.dropPosition.y, 0.635), z:data.dropPosition.z} : thisPos;
     const dropRot  = (data.dropRotation.x < 100001.0) ? {x:data.dropRotation.x, y:data.dropRotation.y, z:data.dropRotation.z} : thisRot;
     const dropSca  = (data.dropScale.x < 100001.0) ? {x:data.dropScale.x, y:data.dropScale.y, z:data.dropScale.z} : thisSca;
 

@@ -132,6 +132,9 @@ function changeEnvironment() {
     grid: "none",
   });
 
+  //Allows the any object to be shared with other connected clients.
+  newEnvironment.setAttribute("circles-networked-basic")
+
   // Set initial position off-screen
   newEnvironment.setAttribute("position", "0 -13 0");
 
