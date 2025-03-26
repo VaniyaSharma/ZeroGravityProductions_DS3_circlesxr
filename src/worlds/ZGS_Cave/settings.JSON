@@ -1,0 +1,11 @@
+{
+    "world": {
+        "name": "The Cave",
+        "type": "experience",
+        "imgPath": "./profile.jpg",
+        "description_short": "Cave world puzzle.",
+        "description_long": "Participants solve the melody puzzle.",
+        "tags": [ "experience", "ZGS", "melody"],
+        "supportedDevices": [ "mobile", "desktop", "hmd_3dof", "hmd_6dof" ]
+    }
+}

@@ -4,8 +4,7 @@
     <circles-start-scripts />
 
     <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
-    <script src="scripts/cryo-carry-manager.js"></script>
-    <script src="scripts/flashlight.js"></script>
+    <script src="scripts/cave-carry-manager.js"></script>
   </head>
   <body>
     <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
@@ -20,21 +19,24 @@
           src="/global/images/ZGS_room1.jpg"
           crossorigin="anonymous"
         />
-
         <a-asset-item
-          id="enviro-gltf"
-          src="assets/Cryo-Walls.glb"
-          response-type="arraybuffer"
+          id="diamond_glb"
+          src="assets/diamond-music.glb"
+          crossorigin="anonymous"
         ></a-asset-item>
         <a-asset-item
-          id="cryoPods_glb"
-          src="assets/Cryo-Props.glb"
-          response-type="arraybuffer"
+          id="cube_glb"
+          src="assets/cube-music.glb"
+          crossorigin="anonymous"
         ></a-asset-item>
-
         <a-asset-item
-          id="nav_gltf"
-          src="assets/Cryo-NavMesh.glb"
+          id="sphere_glb"
+          src="assets/sphere-music.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="triangle_glb"
+          src="assets/triangle-music.glb"
           crossorigin="anonymous"
         ></a-asset-item>
         <a-asset-item
@@ -46,6 +48,7 @@
         <circles-assets />
       </a-assets>
 
+      <!-- Carry manager script! -->
       <a-entity id="GameManager" carry-manager></a-entity>
       <!-- Circles' built-in manager and avatar [REQUIRED] -->
       <circles-manager-avatar />
@@ -58,6 +61,44 @@
         scale="0.100 0.950 1.010"
         circles-portal="img_src:#link_1_360; title_text:Sunrise; link_url:/w/ZGS"
         shadow
+      ></a-entity>
+
+      <!-- shapes -->
+
+      <a-entity
+        id="cube"
+        gltf-model="#cube_glb"
+        position="-2 1.6 -4"
+        circles-interactive-object="type:highlight;"
+        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
+      ></a-entity>
+
+      <a-entity
+        id="triangle"
+        gltf-model="#triangle_glb"
+        position="-1 1.6 -4"
+        circles-interactive-object="type:highlight;"
+        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
+      ></a-entity>
+
+      <a-entity
+        id="diamond"
+        gltf-model="#diamond_glb"
+        position="0 1.6 -4"
+        circles-interactive-object="type:outline;"
+        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
+      ></a-entity>
+
+      <a-entity
+        id="sphere"
+        gltf-model="#sphere_glb"
+        position="1 1.6 -4"
+        circles-interactive-object="type:scale;"
+        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
       ></a-entity>
 
       <!-- seed! -->
@@ -74,41 +115,13 @@
 
       <!-- environment -->
       <!-- the environment -->
-      <a-entity
-        gltf-model="#enviro-gltf"
-        shadow="receive: true; cast: true"
-      ></a-entity>
 
-      <a-entity
-        gltf-model="#cryoPods_glb"
-        shadow="receive: true; cast: true"
-      ></a-entity>
-      <a-entity environment="preset:yavapai"></a-entity>
-
-      <a-entity
-        position="0 0 0"
-        id="navmesh"
-        gltf-model="#nav_gltf"
-        visible="true"
-        nav-mesh
-      ></a-entity>
+      <a-entity environment="preset:arches"></a-entity>
     </a-scene>
-      <a-entity
-        position="0 0 0"
-        id="navmesh"
-        gltf-model="#nav_gltf"
-        visible="true"
-        nav-mesh
-      ></a-entity>
 
-      <!-- Light -->
-      <a-entity
-        light="type: point; color: #FFA200; intensity: 3.5; distance: 20.0; castShadow: true; shadowMapHeight: 256; shadowMapWidth: 256;"
-        animation="property:light.intensity; dur:293; dir:alternate; to:3.6; loop:true; easing:easeInOutExpo"
-        position="-0.59 2.7 0"
-      ></a-entity>
-    </a-scene>
     <!-- Circles' end scripts [REQUIRED] -->
     <circles-end-scripts />
   </body>
+
+  <script src="scripts/melody-game.js"></script>
 </html>
