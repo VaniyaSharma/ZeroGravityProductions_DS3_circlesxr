@@ -46,15 +46,7 @@ function melodyComplete() {
   setTimeout(function () {
     CONTEXT_AF.melodyMusic.components.sound.playSound();
   }, 2000);
-  // CONTEXT_AF.melodyMusic.components.sound.playSound();
   CONTEXT_AF.seed.click();
-
-  // CONTEXT_AF.cube.removeEventListener("click");
-  // CONTEXT_AF.triangle.removeEventListener("click");
-  // CONTEXT_AF.sphere.removeEventListener("click");
-  // CONTEXT_AF.diamond.removeEventListener("click");
-
-  // Find another way...
 
   canClick = false;
   CONTEXT_AF.cube.classList.remove("circles-interactive-object");
@@ -63,10 +55,10 @@ function melodyComplete() {
 // Event listeners for objects
 CONTEXT_AF.cube.addEventListener("click", function () {
   if (canClick) {
+    CONTEXT_AF.cubeNote.components.sound.stopSound();
+    CONTEXT_AF.cubeNote.components.sound.playSound();
     if (melody[pointer] == "G") {
       pointer++;
-      CONTEXT_AF.cubeNote.components.sound.stopSound();
-      CONTEXT_AF.cubeNote.components.sound.playSound();
     } else {
       pointer = 0;
     }
@@ -76,10 +68,10 @@ CONTEXT_AF.cube.addEventListener("click", function () {
 
 CONTEXT_AF.triangle.addEventListener("click", function () {
   if (canClick) {
+    CONTEXT_AF.triangleNote.components.sound.stopSound();
+    CONTEXT_AF.triangleNote.components.sound.playSound();
     if (melody[pointer] == "R") {
       pointer++;
-      CONTEXT_AF.triangleNote.components.sound.stopSound();
-      CONTEXT_AF.triangleNote.components.sound.playSound();
     } else {
       pointer = 0;
     }
@@ -89,15 +81,13 @@ CONTEXT_AF.triangle.addEventListener("click", function () {
 
 CONTEXT_AF.diamond.addEventListener("click", function () {
   if (canClick) {
+    CONTEXT_AF.diamondNoteHigh.components.sound.stopSound();
+    CONTEXT_AF.diamondNoteHigh.components.sound.playSound();
     if (melody[pointer] == "B") {
       if (pointer >= 11) {
-        CONTEXT_AF.diamondNoteHigh.components.sound.stopSound();
-        CONTEXT_AF.diamondNoteHigh.components.sound.playSound();
         melodyComplete();
       } else {
         pointer++;
-        CONTEXT_AF.diamondNote.components.sound.stopSound();
-        CONTEXT_AF.diamondNote.components.sound.playSound();
       }
     } else {
       pointer = 0;
@@ -109,10 +99,10 @@ CONTEXT_AF.diamond.addEventListener("click", function () {
 
 CONTEXT_AF.sphere.addEventListener("click", function () {
   if (canClick) {
+    CONTEXT_AF.sphereNote.components.sound.stopSound();
+    CONTEXT_AF.sphereNote.components.sound.playSound();
     if (melody[pointer] == "Y") {
       pointer++;
-      CONTEXT_AF.sphereNote.components.sound.stopSound();
-      CONTEXT_AF.sphereNote.components.sound.playSound();
     } else {
       pointer = 0;
     }
