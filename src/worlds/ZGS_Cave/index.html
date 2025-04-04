@@ -130,6 +130,8 @@
       <!-- Circles' built-in manager and avatar [REQUIRED] -->
       <circles-manager-avatar />
 
+      <a-entity circles-spawnpoint position="0 0 4"></a-entity>
+
       <!-- via -->
       <a-entity
         environment="skyType:color; skyColor: maroon; ground:none;"
@@ -142,6 +144,11 @@
           position="0 0 0"
           rotation="0 180 0"
           shadow="cast:false; receive:true;"
+        ></a-entity>
+        <a-entity
+          id="wall_light"
+          light="type: point; intensity: 2; distance: 30; decay: 0.5; color:rgb(255,220,220);"
+          position="2 10.5 20"
         ></a-entity>
         <a-entity class="rocks">
           <a-entity
@@ -210,7 +217,7 @@
       <!-- links to other worlds -->
       <a-entity
         id="link_1"
-        position="0 1.22 5"
+        position="0 1.22 14"
         rotation="0 90 0"
         scale="0.100 0.950 1.010"
         circles-portal="img_src:#link_1_360; title_text:Sunrise; link_url:/w/ZGS"
@@ -222,11 +229,16 @@
       <a-entity
         id="cube"
         gltf-model="#cube_glb"
-        position="10.5 1.5 0"
-        scale="1.5 1.5 1.5"
+        position="7 1.5 7"
+        scale="2 2 2"
         circles-interactive-object="type:outline;"
         position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
       >
+        <a-entity
+          id="cube_light"
+          light="type: point; intensity: 5; distance: 20; decay: 1; color:rgb(0,255,0);"
+          position="0 0 0"
+        ></a-entity>
         <a-entity
           id="cube_music"
           sound="src:#green-note; autoplay:false; loop:false"
@@ -236,11 +248,16 @@
       <a-entity
         id="triangle"
         gltf-model="#triangle_glb"
-        position="0 1.5 9.5"
-        scale="1.5 1.5 1.5"
+        position="-7 1.5 7"
+        scale="2 2 2"
         circles-interactive-object="type:outline;"
         position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
       >
+        <a-entity
+          id="triangle_light"
+          light="type: point; intensity: 5; distance: 20; decay: 1; color:rgb(255,0,0);"
+          position="0 0 0"
+        ></a-entity>
         <a-entity
           id="triangle_music"
           sound="src:#red-note; autoplay:false; loop:false"
@@ -250,11 +267,16 @@
       <a-entity
         id="diamond"
         gltf-model="#diamond_glb"
-        position="0 1.5 -9.5"
-        scale="1.5 1.5 1.5"
+        position="7 1.5 -7"
+        scale="2 2 2"
         circles-interactive-object="type:outline;"
         position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
       >
+        <a-entity
+          id="diamond_light"
+          light="type: point; intensity: 5; distance: 20; decay: 1; color:rgb(0,0,255);"
+          position="0 0 0"
+        ></a-entity>
         <a-entity
           id="diamond_music"
           sound="src:#l-blue-note; autoplay:false; loop:false"
@@ -269,11 +291,16 @@
       <a-entity
         id="sphere"
         gltf-model="#sphere_glb"
-        position="-10.5 1.5 0"
-        scale="1.5 1.5 1.5"
+        position="-7 1.5 -7"
+        scale="2 2 2"
         circles-interactive-object="type:outline;"
         position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
       >
+        <a-entity
+          id="sphere_light"
+          light="type: point; intensity: 5; distance: 20; decay: 1; color:rgb(255,255,0);"
+          position="0 0 0"
+        ></a-entity>
         <a-entity
           id="sphere_music"
           sound="src:#yellow-note; autoplay:false; loop:false"
@@ -285,12 +312,18 @@
       <a-entity
         id="seed"
         gltf-model="#seed_glb"
-        position="-0.50 0.6 -0.2"
+        position="-0.50 -0.6 -0.2"
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
         position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="2 2 2"
       >
+        <a-entity
+          id="seed_light"
+          light="type: point; intensity: 3; distance: 20; decay: 1; color:rgb(150,255,175);"
+          position="0 0 0"
+        ></a-entity>
         <a-entity
           id="melody_music"
           sound="src:#melody-full; autoplay:false; loop:false"
