@@ -5,7 +5,8 @@
 
     <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
     <script src="scripts/cryo-carry-manager.js"></script>
-    <script src="scripts/flashlight.js"></script>
+    <!-- Position Lock stuff-->
+    <script src="js/position-locker.js"></script>
   </head>
   <body>
     <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
@@ -61,7 +62,6 @@
       ></a-entity>
 
       <!-- seed! -->
-
       <a-entity
         id="seed"
         gltf-model="#seed_glb"
@@ -69,8 +69,24 @@
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
-        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        position-locker="threshold: 0.1"
       ></a-entity>
+
+      <a-entity
+        id="orb1"
+        position="-5 -0.4 -0.3"
+        circles-pickup-object="animate:false;"
+        circles-interactive-object="type:highlight;"
+        circles-pickup-networked
+        position-locker="threshold: 0.1"
+      ></a-entity>
+
+      <!-- Puzzle Button -->
+
+      <!-- Reset Button-->
+      <a-entity id="resetButton" circles-button="pedastal_color:rgb(74, 87, 95);" 
+      position="0 1.5 -3" rotation="0 90 0" scale="0.8 0.8 0.8"
+      reset-puzzle></a-entity>
 
       <!-- environment -->
       <!-- the environment -->
