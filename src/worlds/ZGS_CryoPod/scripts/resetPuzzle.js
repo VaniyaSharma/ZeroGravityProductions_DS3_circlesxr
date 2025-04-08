@@ -3,10 +3,12 @@ AFRAME.registerComponent('reset-puzzle', {
         // Get the button and listen for its click event
         const resetButton = this.el;
         // Listen for the button press event
-        resetButton.addEventListener('click', this.resetPuzzle.bind(this));
+        resetButton.addEventListener('circles-button-click', this.resetPuzzle.bind(this));
     },
   
     resetPuzzle: function () {
+      //Check
+      console.log("Reset button pressed")
       // Get all orbs
       const orb1 = document.querySelector('#orb1');
       const orb2 = document.querySelector('#orb2');
