@@ -22,8 +22,13 @@
         />
 
         <a-asset-item
-          id="enviro-gltf"
+          id="enviro_glb"
           src="assets/Walls.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="table_glb"
+          src="assets/Table.glb"
           response-type="arraybuffer"
         ></a-asset-item>
         <a-asset-item
@@ -31,10 +36,14 @@
           src="assets/CryoPod.glb"
           response-type="arraybuffer"
         ></a-asset-item>
-
         <a-asset-item
-          id="nav_gltf"
-          src="assets/Cryo-NavMesh.glb"
+          id="monitor_glb"
+          src="assets/Monitor.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="nav_glb"
+          src="assets/Nav.glb"
           crossorigin="anonymous"
         ></a-asset-item>
         <a-asset-item
@@ -69,34 +78,59 @@
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
-        position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        position-locker="threshold: 0.1"
       ></a-entity>
 
       <!-- environment -->
       <!-- the environment -->
       <a-entity
-        gltf-model="#enviro-gltf"
+        id="SpawnPoint"
+        circles-spawnpoint
+        position="-0.18 0.040 4"
+      ></a-entity>
+
+      <a-entity
+        id="walls"
+        position="0 0.045 0"
+        gltf-model="#enviro_glb"
         shadow="receive: true; cast: true"
       ></a-entity>
 
       <a-entity
+        id="pod"
+        position="0 0.045 0"
         gltf-model="#cryoPods_glb"
         shadow="receive: true; cast: true"
       ></a-entity>
-      <a-entity environment="preset:yavapai"></a-entity>
 
       <a-entity
-        position="0 0 0"
+        id="table"
+        position="0 0.025 0"
+        gltf-model="#table_glb"
+        shadow="receive: true; cast: true"
+      ></a-entity>
+
+      <a-entity
+        id="monitor"
+        position="0 0.045 0"
+        gltf-model="#monitor_glb"
+        shadow="receive: true; cast: true"
+      ></a-entity>
+
+      <a-entity environment="preset:yavapai"></a-entity>
+      
+      <a-entity
+        position="0 0.045 0"
         id="navmesh"
-        gltf-model="#nav_gltf"
+        gltf-model="#nav_glb"
         visible="true"
         nav-mesh
       ></a-entity>
     </a-scene>
       <a-entity
-        position="0 0 0"
+        position="0 0.045 0"
         id="navmesh"
-        gltf-model="#nav_gltf"
+        gltf-model="#nav_glb"
         visible="true"
         nav-mesh
       ></a-entity>
