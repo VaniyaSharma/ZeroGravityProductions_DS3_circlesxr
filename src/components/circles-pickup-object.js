@@ -28,11 +28,13 @@ AFRAME.registerComponent('circles-pickup-object', {
     if (CIRCLES.isReady()) {
       CONTEXT_AF.playerHolder = CIRCLES.getAvatarHolderElementBody();  //this is our player holder
       CONTEXT_AF.origParent = CONTEXT_AF.el.parentNode;
+      CONTEXT_AF.originalScale = CONTEXT_AF.el.object3D.scale.clone(); //Save original scale
     }
     else {
       const readyFunc = function() {
         CONTEXT_AF.playerHolder = CIRCLES.getAvatarHolderElementBody();  //this is our player holder
         CONTEXT_AF.origParent   = CONTEXT_AF.el.parentNode;
+        CONTEXT_AF.originalScale = CONTEXT_AF.el.object3D.scale.clone(); //Save original scale
         CIRCLES.getCirclesSceneElement().removeEventListener(CIRCLES.EVENTS.READY, readyFunc);
       };
       CIRCLES.getCirclesSceneElement().addEventListener(CIRCLES.EVENTS.READY, readyFunc);
@@ -65,7 +67,8 @@ AFRAME.registerComponent('circles-pickup-object', {
 
     const pickupPos  = (data.pickupPosition.x < 100001.0) ? {x:data.pickupPosition.x, y:data.pickupPosition.y, z:data.pickupPosition.z} : thisPos;
     const pickupRot  = (data.pickupRotation.x < 100001.0) ? {x:data.pickupRotation.x, y:data.pickupRotation.y, z:data.pickupRotation.z} : thisRot;
-    const pickupSca  = (data.pickupScale.x < 100001.0) ? {x:data.pickupScale.x, y:data.pickupScale.y, z:data.pickupScale.z} : thisSca;
+    const pickupSca  = (data.pickupScale.x < 100001.0) ? {x:data.pickupScale.x, y:data.pickupScale.y, z:data.pickupScale.z} : {x:CONTEXT_AF.originalScale.x, y:CONTEXT_AF.originalScale.y, z:CONTEXT_AF.originalScale.z};
+    
 
     //set pickup transforms
     if (data.animate === true) {
@@ -102,7 +105,7 @@ AFRAME.registerComponent('circles-pickup-object', {
 
     const dropPos  = (data.dropPosition.x < 100001.0) ? {x:data.dropPosition.x, y:data.dropPosition.y, z:data.dropPosition.z} : thisPos;
     const dropRot  = (data.dropRotation.x < 100001.0) ? {x:data.dropRotation.x, y:data.dropRotation.y, z:data.dropRotation.z} : thisRot;
-    const dropSca  = (data.dropScale.x < 100001.0) ? {x:data.dropScale.x, y:data.dropScale.y, z:data.dropScale.z} : thisSca;
+    const dropSca  = (data.dropScale.x < 100001.0) ? {x:data.dropScale.x, y:data.dropScale.y, z:data.dropScale.z} : {x:CONTEXT_AF.originalScale.x, y:CONTEXT_AF.originalScale.y, z:CONTEXT_AF.originalScale.z};
 
     let artReleaseTimeout = null;
 
