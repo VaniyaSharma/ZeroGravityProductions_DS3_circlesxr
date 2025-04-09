@@ -80,6 +80,12 @@
 
         <!-- audio -->
         <audio
+          id="incorrect-note"
+          src="assets/incorrect.wav"
+          preload="auto"
+          crossorigin="anonymous"
+        ></audio>
+        <audio
           id="l-blue-note"
           src="assets/lBlue.wav"
           preload="auto"
@@ -116,7 +122,7 @@
 
         <audio
           id="melody-full"
-          src="assets/melody.wav"
+          src="assets/melody fast.wav"
           preload="auto"
           crossorigin="anonymous"
         ></audio>
@@ -203,6 +209,15 @@
             gltf-model="#rock5_model"
             position="0 0 13.325"
             scale="1.824 1 1.454"
+          >
+            <a-entity
+              id="melody_music"
+              sound="src:#melody-full; autoplay:false; loop:false"
+            ></a-entity>
+            <a-entity
+              id="incorrect_music"
+              sound="src:#incorrect-note; autoplay:false; loop:false"
+            ></a-entity
           ></a-entity>
         </a-entity>
       </a-entity>
@@ -285,15 +300,17 @@
       <a-entity
         id="seed"
         gltf-model="#seed_glb"
-        position="-0.50 0.6 -0.2"
+        position="-0.50 60 -0.2"
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
         position-locker="target: 0.0 1.464 1.153; threshold: 0.1"
+        scale="1.5 1.5 1.5"
       >
         <a-entity
-          id="melody_music"
-          sound="src:#melody-full; autoplay:false; loop:false"
+          id="seed_light"
+          light="type: point; intensity: 3; distance: 20; decay: 1; color:rgb(150,255,175);"
+          position="0 0 0"
         ></a-entity>
       </a-entity>
     </a-scene>
