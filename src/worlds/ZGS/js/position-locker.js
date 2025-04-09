@@ -21,6 +21,7 @@ AFRAME.registerComponent('position-locker', {
         if (distance <= this.data.threshold && !this.isLocked && circlesObjectWorld.pickedup === false) {
           // Lock position
           el.setAttribute('position', this.data.target);
+          el.setAttribute('rotation', this.data.target);
 
           // Emit custom event
           el.emit('positionLocked', { position: this.data.target });
