@@ -43,6 +43,21 @@
           src="assets/Seed.glb"
           crossorigin="anonymous"
         ></a-asset-item>
+        <a-asset-item
+          id="orb1_glb"
+          src="assets/Orbs/PlantOrbGlass.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="orb2_glb"
+          src="assets/Orbs/Frog2OrbGlass.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="orb3_glb"
+          src="assets/Orbs/GearOrbGlass.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets />
       </a-assets>
@@ -74,7 +89,8 @@
 
       <a-entity
         id="orb1"
-        position="-5 -0.4 -0.3"
+        gltf-model="#orb1_glb"
+        position="0 0 0"
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
@@ -82,11 +98,26 @@
       ></a-entity>
 
       <!-- Puzzle Button -->
+      <a-entity id="puzzleButton"
+        circles-button="pedastal_color:rgb(74, 87, 95); type:box;"
+        position="1.4 0.04 -2.02"
+        rotation="0 35 0"
+        scale="0.8 0.8 0.8"
+        puzzle-completion-trigger="socketIds: socket1, socket2, socket3;">
+      </a-entity>
 
       <!-- Reset Button-->
-      <a-entity id="resetButton" circles-button="pedastal_color:rgb(74, 87, 95);" 
-      position="0 1.5 -3" rotation="0 90 0" scale="0.8 0.8 0.8"
+      <a-entity id="resetButton" 
+      circles-button="pedastal_color:rgb(74, 87, 95); type:cylinder;" 
+      position="1.885 0.04 -1.3" 
+      rotation="0 35 0" 
+      scale="0.8 0.8 0.8"
       reset-puzzle></a-entity>
+
+      <!--Socket1-->
+      <a-entity
+        id="socket1"
+      ></a-entity>
 
       <!-- environment -->
       <!-- the environment -->

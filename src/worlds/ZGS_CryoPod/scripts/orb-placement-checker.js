@@ -1,26 +1,36 @@
 AFRAME.registerComponent('orb-placement-checker', {
-    schema: {
-      expectedOrbId: { type: 'string' }
-    },
-  
-    init: function () {
-      this.correctlyPlaced = false;
-  
-      const expectedOrb = document.getElementById(this.data.expectedOrbId);
-      if (!expectedOrb) {
-        console.warn(`Expected orb '${this.data.expectedOrbId}' not found.`);
-        return;
+  schema: {
+    expectedOrbId: { type: 'string' }  // ID of the orb expected in this socket
+  },
+
+  init: function () {
+    this.orbPlaced = null;
+
+    this.el.addEventListener('positionLocked', (evt) => {
+      const placedOrb = evt.target;
+      const placedOrbId = placedOrb.getAttribute('id');
+
+      console.log(`Orb with ID '${placedOrbId}' placed in socket expecting '${this.data.expectedOrbId}'`);
+
+      if (placedOrbId === this.data.expectedOrbId) {
+        this.orbPlaced = placedOrbId;
+        console.log(`Correct orb placed in ${this.el.id}`);
+        // Something to indicate its correct
+
+      } else {
+        console.log(`Incorrect orb. Expected '${this.data.expectedOrbId}' but got '${placedOrbId}'`);
+        // Something to indicate its wrong
       }
-  
-      // Assume correct placement if orb emits positionLocked
-      expectedOrb.addEventListener('positionLocked', () => {
-        this.correctlyPlaced = true;
-        console.log(`${this.data.expectedOrbId} marked as correctly placed in socket ${this.el.id}`);
-      });
-  
-      expectedOrb.addEventListener('positionUnlocked', () => {
-        this.correctlyPlaced = false;
-        console.log(`${this.data.expectedOrbId} marked as removed from socket ${this.el.id}`);
-      });
-    }
-  });
+    });
+
+    this.el.addEventListener('positionUnlocked', () => {
+      this.orbPlaced = null;
+      console.log(`Orb removed from ${this.el.id}`);
+      // Something to probably indicate that there is nothing on it.
+    });
+  },
+
+  isCorrectlyPlaced: function () {
+    return this.orbPlaced === this.data.expectedOrbId;
+  }
+});
