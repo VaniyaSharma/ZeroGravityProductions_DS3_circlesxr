@@ -73,12 +73,12 @@
           crossorigin="anonymous"
         ></a-asset-item>
         <a-assets>
-          <img id="MonitorBack" 
-               src="assets/Monitor Images/MonitorScreenBack.png">
+          <img id="Monitor_img"
+               src="assets/Monitor_Images/MonitorScreen.png">
         </a-assets>
         <a-assets>
-          <img id="MonitorText" 
-               src="assets/Monitor Images/MonitorScreenText.png">
+          <img id="MonitorText_img"
+               src="assets/Monitor_Images/MonitorScreenText.png">
         </a-assets>
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets />
@@ -153,13 +153,32 @@
         shadow="cast: true"
       >
       <a-image
-        src="/"
-      >
-      </a-image>
-      <a-image
-        src=""
+        src="#Monitor_img"
+        position="2.031 1.296 -1.967"
+        rotation="0 -54.622 0"
+        scale="1.78 1.12 0.8"
+        side="front"
       ></a-image>
-
+      <a-entity
+        id="monitor_puzzle_button"
+        position="2.466 0.876 -1.559"
+        rotation="-0.149 33.903 87.986"
+        circles-button="pedestal_visble: false;
+                        diameter:0.220
+                        button_color: #61fffc
+                        button_color_hover: #85ffca"
+        puzzle-button-trigger
+      ></a-entity>
+      <a-entity
+        id="monitor_puzzle_button"
+        position="2.466 1.500 -1.559"
+        rotation="-0.149 33.903 87.986"
+        circles-button="pedestal_visble: false;
+                        diameter:0.220
+                        button_color: #61fffc
+                        button_color_hover: #85ffca"
+        reset-puzzle
+      ></a-entity>
       </a-entity>
 
       <a-entity
