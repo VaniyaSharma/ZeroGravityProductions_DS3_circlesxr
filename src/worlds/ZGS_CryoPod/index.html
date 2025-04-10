@@ -148,7 +148,7 @@
 
       <a-entity
         id="monitor"
-        position="0 0.045 0"
+        position="-0.032 0.045 0.059"
         gltf-model="#monitor_glb"
         shadow="cast: true"
       >
@@ -161,22 +161,22 @@
       ></a-image>
       <a-entity
         id="monitor_puzzle_button"
-        position="2.466 0.876 -1.559"
-        rotation="-0.149 33.903 87.986"
-        circles-button="pedestal_visble: false;
-                        diameter:0.220
-                        button_color: #61fffc
-                        button_color_hover: #85ffca"
-        puzzle-button-trigger
+        position="1.920 1.166 -2.307"
+        rotation="0.084 35.47 90"
+        circles-button="pedestal_visible: false;
+                        diameter:0.;
+                        button_color: #61fffc;
+                        button_color_hover: #85ffca;"
+        puzzle-completion-trigger="socketIds: socket1, socket2, socket3;"
       ></a-entity>
       <a-entity
-        id="monitor_puzzle_button"
-        position="2.466 1.500 -1.559"
-        rotation="-0.149 33.903 87.986"
-        circles-button="pedestal_visble: false;
-                        diameter:0.220
-                        button_color: #61fffc
-                        button_color_hover: #85ffca"
+        id="monitor_reset_button"
+        position="2.324 1.165 -1.732"
+        rotation="1.222 35.23 90"
+        circles-button="pedestal_visible: false;
+                        diameter:0.5;
+                        button_color: #61fffc;
+                        button_color_hover: #85ffca;"
         reset-puzzle
       ></a-entity>
       </a-entity>
@@ -223,32 +223,33 @@
 
        <a-entity
         id="RoomLight1"
-        light="type: point; 
+        light="type: spot;
                intensity: 2; 
                distance: 25; 
                decay: 2; 
-               castShadow: false; 
-               shadowBias: 0.002; 
+               castShadow: true;
+               shadowBias: -0.002;
                shadowCameraFov: 100;
                shadowMapHeight: 2048;
                shadowMapWidth: 2048; 
                color: #FFFFFF"
-        position="0 0 0"
+        position="-0.48 0.355 -3.304"
+        rotation="60 0 0"
        ></a-entity>
-      
+       
        <a-entity
         id="RoomLight2"
         light="type: point; 
-               intensity: 2; 
-               distance: 25; 
-               decay: 2; 
-               castShadow: false; 
-               shadowBias: 0.002; 
+               intensity: 30; 
+               distance: 25;
+               decay: 2;
+               castShadow: true;
+               shadowBias: -0.002;
                shadowCameraFov: 100;
                shadowMapHeight: 2048;
                shadowMapWidth: 2048; 
                color: #FFFFFF"
-        position="0 0 0"
+        position="0 3.500 0"
        ></a-entity>
 
       <a-entity
