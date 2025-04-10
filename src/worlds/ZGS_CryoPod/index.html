@@ -87,7 +87,6 @@
         rotation="0 90 0"
         scale="0.100 0.950 1.010"
         circles-portal="img_src:#link_1_360; title_text:Sunrise; link_url:/w/ZGS"
-        shadow
       ></a-entity>
 
       <!-- seed! -->
@@ -123,28 +122,27 @@
         id="walls"
         position="0 0 0"
         gltf-model="#enviro_glb"
-        shadow="receive: true;"
+        shadow="receive: true; cast: false"
       ></a-entity>
 
       <a-entity
         id="pod"
         position="0 0 0"
         gltf-model="#cryoPods_glb"
-        shadow="receive: true; cast: true"
       ></a-entity>
 
       <a-entity
         id="table"
         position="0 -0.02 0"
         gltf-model="#table_glb"
-        shadow="receive: true; cast: true"
+        shadow="cast: true"
       ></a-entity>
 
       <a-entity
         id="monitor"
         position="0 0.045 0"
         gltf-model="#monitor_glb"
-        shadow="receive: true; cast: true"
+        shadow="cast: true"
       ></a-entity>
 
       <a-entity
@@ -166,7 +164,18 @@
         position="0 0.045 0"
         gltf-model="#sign_glb"
         shadow="receive: true; cast: true"
+        material = "shader:standard;color:blue;
+                    emissive:red;emissiveIntensity:2"
       ></a-entity>
+
+      <a-image src="assets/Pngimg-Transparent-Images.png"
+              position="0 2 -3"
+              rotation="0 0 0"
+              height="5" 
+              width="5"
+              material = "shader:standard;
+              emissive:red;emissiveIntensity:2">
+</a-image>
 
       <a-entity environment="
         preset:yavapai; 
@@ -180,16 +189,29 @@
 
        <a-entity
         id="RoomLight"
-        light="type: point; color: #FFF; intensity: 0.6; castShadow: true; shadowCameraVisible: true;"
+        light="type: point; 
+               intensity: 2; 
+               distance: 25; 
+               decay: 2; 
+               castShadow: false; 
+               shadowBias: 0.002; 
+               shadowCameraFov: 100;
+               shadowMapHeight: 2048;
+               shadowMapWidth: 2048; 
+               color: #FFFFFF"
         position="0 0 0"
        ></a-entity>
       
+       <a-entity 
+        light="type: point; castShadow: true" position="-0.48484 0.50117 -3.43188"></a-entity>
+
       <a-entity
         position="0 0 0"
         id="navmesh"
         gltf-model="#nav_glb"
         visible="true"
         nav-mesh
+        shadow="receive: true;"
       ></a-entity>
     </a-scene>
       <a-entity
@@ -198,6 +220,7 @@
         gltf-model="#nav_glb"
         visible="true"
         nav-mesh
+        shadow="receive: true;"
       ></a-entity>
     </a-scene>
     <!-- Circles' end scripts [REQUIRED] -->
