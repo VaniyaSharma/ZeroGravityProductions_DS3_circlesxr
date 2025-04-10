@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Music Experience</title>
+    <meta charset="utf-8" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script
+        src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+
+</head>
+
+<body>
+
+    <a-scene>
+        <a-assets>
+            <!--assets-->
+            <a-asset-item id="cave_model" src="assets/cave.glb" response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="rock1_model" src="assets/rock1.glb" response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="rock2_model" src="assets/rock2.glb" response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="rock3_model" src="assets/rock3.glb" response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="rock4_model" src="assets/rock4.glb" response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="rock5_model" src="assets/rock5.glb" response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="triangle_gem_model" src="assets/triangle-music-gem.glb"
+                response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="sphere_gem_model" src="assets/sphere-music-gem.glb"
+                response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="diamond_gem_model" src="assets/diamond-music-gem.glb"
+                response-type="arraybuffer"></a-asset-item>
+            <a-asset-item id="cube_gem_model" src="assets/cube-music-gem.glb"
+                response-type="arraybuffer"></a-asset-item>
+
+            <img id="sky_map" src="assets/sky-map.jpg" crossorigin="anonymous">
+        </a-assets>
+
+
+        <a-entity camera wasd-controls look-controls position="0 1.6 0">
+            <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive"></a-entity>
+        </a-entity>
+
+        <a-entity environment="skyType:color; skyColor: maroon; ground:none;"></a-entity>
+
+        <a-entity class="enviroment">
+            <a-entity id="cave" gltf-model="#cave_model" position="0 0 0" rotation="0 180 0"
+                shadow="cast:false; recieve:true;"></a-entity>
+            <a-entity class="rocks">
+                <a-entity id="rock1" gltf-model="#rock1_model" position="-9.804 0 -10.377"
+                    scale="1.889 1.889 1.889"></a-entity>
+                <a-entity id="rock2" gltf-model="#rock2_model" position="-8.089 0 -8.194" scale="1 1 1"></a-entity>
+                <a-entity id="rock3" gltf-model="#rock3_model" position="-12.603 0 15.232" scale="1 1 1"></a-entity>
+                <a-entity id="rock4" gltf-model="#rock4_model" position="-11.931 0 20.260"
+                    scale="1.238 1.238 1.238"></a-entity>
+                <a-entity id="rock5" gltf-model="#rock5_model" position="-10.386 0 0.520" scale="1 1 1"></a-entity>
+                <a-entity id="rock6" gltf-model="#rock1_model" position="9.936 0 -11.409"
+                    scale="1.405 1.405 1.405"></a-entity>
+                <a-entity id="rock7" gltf-model="#rock2_model" position="11.728 0 -6.015"
+                    scale="2.625 2.625 2.625"></a-entity>
+                <a-entity id="rock8" gltf-model="#rock3_model" position="12.051 0 23.776"
+                    scale="2.241 2.241 2.241"></a-entity>
+                <a-entity id="rock9" gltf-model="#rock4_model" position="12.297 0 18.119" scale="1 1 1"></a-entity>
+                <a-entity id="rock0" gltf-model="#rock5_model" position="0 0 13.325" scale="1.824 1 1.454"></a-entity>
+            </a-entity>
+        </a-entity>
+        <a-entity class="gems">
+            <a-entity id="diamond" gltf-model="#diamond_gem_model" position="0 1.5 -9.5" scale="1.5 1.5 1.5"></a-entity>
+            <a-entity id="triangle" gltf-model="#triangle_gem_model" position="0 1.5 9.5"
+                scale="1.5 1.5 1.5"></a-entity>
+            <a-entity id="sphere" gltf-model="#sphere_gem_model" position="-10.5 1.5 0" scale="1.5 1.5 1.5"></a-entity>
+            <a-entity id="cube" gltf-model="#cube_gem_model" position="10.5 1.5 0" scale="1.5 1.5 1.5"></a-entity>
+        </a-entity>
+
+    </a-scene>
+</body>
+
+</html>
