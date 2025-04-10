@@ -1,0 +1,137 @@
+<html>
+  <head>
+    <!-- Circles' head scripts [REQUIRED] -->
+    <circles-start-scripts />
+
+    <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
+    <script src="scripts/pickuplogic.js"></script>
+    <script src="scripts/position-locker.js"></script>
+    <script src="scripts/reception-carry-manager.js"></script>
+    <script src="scripts/aframe_physics.js"></script>
+  </head>
+  <body>
+    <circles-start-ui />
+
+    <a-scene circles_scene_properties>
+      <a-assets>
+        <img
+          id="link_1_360"
+          src="/global/images/ZGS_room1.jpg"
+          crossorigin="anonymous"
+        />
+        <a-asset-item id="desk_model" src="assets/reception-desk.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="bowl_inactive_model" src="assets/bowl-inactive.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="bowl_active_model" src="assets/bowl-active.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="orb_inactive_model" src="assets/orb-inactive.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="orb_active_model" src="assets/orb-active.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="room_model" src="assets/room.glb" response-type="arraybuffer"></a-asset-item>
+        <circles-assets />
+      </a-assets>
+
+      <a-entity id="GameManager" carry-manager></a-entity>
+      <circles-manager-avatar />
+
+      <a-entity class="enviroment">
+        <a-entity id="room" gltf-model="#room_model" position="0 0 -4" rotation="0 0 0" scale="1 0.7 1"
+                  shadow="cast:false; recieve:true;"></a-entity>
+        <a-entity id="desk" gltf-model="#desk_model" position="-1 0 -4" rotation="0 0 0"></a-entity>
+        <a-entity id="doorway" geometry="primitive:box; height:3; width:2;" material="color:black"
+                  position="4.410 1.5 -1.604" rotation = "0 90 0"></a-entity>
+      </a-entity>
+
+      <a-entity class="important-items">
+        <!-- Bowl with orb-placement-checker -->
+        <a-entity 
+          id="bowl" 
+          gltf-model="#bowl_inactive_model" 
+          position="0 0 -3" 
+          rotation="0 24 0"
+          scale="0.2 0.2 0.2" 
+          visible="true"
+          static-body 
+          orb-placement-checker="expectedOrbId: orb">
+        </a-entity>
+
+        <!-- Orb with position-locker -->
+        <a-entity 
+          id="orb" 
+          gltf-model="#orb_active_model" 
+          position="-0.748 1.126 -3.630" 
+          rotation="0 0 0"
+          scale="0.2 0.2 0.2"
+          visible="true"
+          circles-pickup-object="animate:false;"
+          circles-interactive-object="type:highlight;"
+          circles-pickup-networked
+          position-locker="target: 0.0 0.325 -2.519; threshold: 1.0"
+          pickup-detector>
+        </a-entity>
+
+        <a-entity 
+          id="bowl-glow" 
+          gltf-model="#bowl_active_model" 
+          position="0 0 -3" 
+          rotation="0 24 0"
+          scale="0.2 0.2 0.2" 
+          visible="false"
+          static-body 
+          orb-placement-checker="expectedOrbId: orb"> <!-- Set to false by default -->
+          
+        </a-entity>
+      </a-entity>
+
+      <a-entity
+        id="link_hub"
+        position="3.900 1.5 -1.604"
+        rotation="0 -180 0"
+        scale="0.100 0.950 1.010"
+        circles-portal="img_src:#link_1_360; title_text:Welcome to Sunrise Superbia!; link_url:/w/ZGS"
+        shadow
+        visible = "false"
+      ></a-entity>
+      
+
+    </a-scene>
+
+    <circles-end-scripts />
+  </body>
+
+  <script>
+    AFRAME.registerComponent('orb-placement-checker', {
+      schema: {
+        expectedOrbId: { type: 'string' }
+      },
+
+      init: function () {
+        this.orbPlaced = null;
+
+        this.el.addEventListener('positionLocked', (evt) => {
+          const placedOrb = evt.target;
+          const placedOrbId = placedOrb.getAttribute('id');
+
+          console.log(` Orb with ID '${placedOrbId}' placed in socket expecting '${this.data.expectedOrbId}'`);
+
+          if (placedOrbId === this.data.expectedOrbId) {
+            this.orbPlaced = placedOrbId;
+            console.log(` Correct orb placed in ${this.el.id}`);
+            // Optional: Change bowl model or play a sound here
+          } else {
+            console.log(` Incorrect orb. Expected '${this.data.expectedOrbId}' but got '${placedOrbId}'`);
+            // Optional: Trigger warning visual/sound
+          }
+        });
+
+        this.el.addEventListener('positionUnlocked', () => {
+          console.log(` Orb removed from ${this.el.id}`);
+          this.orbPlaced = null;
+          // Optional: revert visual changes
+        });
+      },
+
+      isCorrectlyPlaced: function () {
+        return this.orbPlaced === this.data.expectedOrbId;
+      }
+    });
+  </script>
+</html>

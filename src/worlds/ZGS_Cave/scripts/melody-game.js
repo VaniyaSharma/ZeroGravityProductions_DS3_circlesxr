@@ -17,8 +17,11 @@ const melody = ["B", "G", "Y", "R", "B", "G", "Y", "R", "Y", "G", "Y", "B"];
 let pointer = 0;
 let canClick = true;
 
+CONTEXT_AF.wallLight = scene.querySelector("#wall_light"); // mister wall light!
+
 //get seed
 CONTEXT_AF.seed = scene.querySelector("#seed"); // mister seed!
+CONTEXT_AF.seedLight = scene.querySelector("#seed_light"); // mister seed light!
 // CONTEXT_AF.incorrectNote = scene.querySelector("#incorrect_music"); TODO
 CONTEXT_AF.melodyMusic = scene.querySelector("#melody_music"); // full melody music
 
@@ -26,19 +29,23 @@ CONTEXT_AF.wrongNote = scene.querySelector("#incorrect_music"); // incorrect mus
 
 //get cube
 CONTEXT_AF.cube = scene.querySelector("#cube"); // green cube
+CONTEXT_AF.cubeLight = scene.querySelector("#cube_light"); // green cube light
 CONTEXT_AF.cubeNote = scene.querySelector("#cube_music"); // green cube note
 
 //get triangle
 CONTEXT_AF.triangle = scene.querySelector("#triangle"); // red triangle
+CONTEXT_AF.triangleLight = scene.querySelector("#triangle_light"); // red triangle light
 CONTEXT_AF.triangleNote = scene.querySelector("#triangle_music"); // red triangle note
 
 //get diamond
 CONTEXT_AF.diamond = scene.querySelector("#diamond"); // blue diamond
+CONTEXT_AF.diamondLight = scene.querySelector("#diamond_light"); // blue diamond light
 CONTEXT_AF.diamondNote = scene.querySelector("#diamond_music"); // blue diamond note
 CONTEXT_AF.diamondNoteHigh = scene.querySelector("#diamond_music_high"); // blue diamond note (high)
 
 //get sphere
 CONTEXT_AF.sphere = scene.querySelector("#sphere"); // yellow sphere
+CONTEXT_AF.sphereLight = scene.querySelector("#sphere_light"); // yellow sphere light
 CONTEXT_AF.sphereNote = scene.querySelector("#sphere_music"); // yellow sphere note
 
 function incorrectPress() {
@@ -69,7 +76,6 @@ function melodyComplete() {
   setTimeout(function () {
     CONTEXT_AF.melodyMusic.components.sound.playSound();
   }, 2000);
-  // CONTEXT_AF.seed.click();
   setTimeout(function () {
     CONTEXT_AF.seed.setAttribute("position", "0.3 2 0");
     CONTEXT_AF.seed.addEventListener("click", function () {
@@ -82,6 +88,7 @@ function melodyComplete() {
   CONTEXT_AF.diamond.classList.remove("circles-interactive-object");
   CONTEXT_AF.sphere.classList.remove("circles-interactive-object");
   CONTEXT_AF.triangle.classList.remove("circles-interactive-object");
+
 
   CONTEXT_AF.wallLight.setAttribute("position", "0 -100 0");
   CONTEXT_AF.cubeLight.setAttribute("position", "0 -100 0");
