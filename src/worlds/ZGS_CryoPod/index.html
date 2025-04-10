@@ -39,7 +39,7 @@
         ></a-asset-item>
         <a-asset-item
           id="monitor_glb"
-          src="assets/Monitor.glb"
+          src="assets/CryoMonitor.glb"
           response-type="arraybuffer"
         ></a-asset-item>
         <a-asset-item
@@ -72,6 +72,14 @@
           src="assets/Seed.glb"
           crossorigin="anonymous"
         ></a-asset-item>
+        <a-assets>
+          <img id="MonitorBack" 
+               src="assets/Monitor Images/MonitorScreenBack.png">
+        </a-assets>
+        <a-assets>
+          <img id="MonitorText" 
+               src="assets/Monitor Images/MonitorScreenText.png">
+        </a-assets>
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets />
       </a-assets>
@@ -143,7 +151,16 @@
         position="0 0.045 0"
         gltf-model="#monitor_glb"
         shadow="cast: true"
-      ></a-entity>
+      >
+      <a-image
+        src="/"
+      >
+      </a-image>
+      <a-image
+        src=""
+      ></a-image>
+
+      </a-entity>
 
       <a-entity
         id="pipes"
@@ -179,6 +196,14 @@
 
        <a-entity
         id="RoomLight"
+        light="type: ambient;
+               intensity: 1; 
+               color: #FFFFFF"
+        position="0 4.177 0"
+       ></a-entity>
+
+       <a-entity
+        id="RoomLight1"
         light="type: point; 
                intensity: 2; 
                distance: 25; 
@@ -192,7 +217,20 @@
         position="0 0 0"
        ></a-entity>
       
-       
+       <a-entity
+        id="RoomLight2"
+        light="type: point; 
+               intensity: 2; 
+               distance: 25; 
+               decay: 2; 
+               castShadow: false; 
+               shadowBias: 0.002; 
+               shadowCameraFov: 100;
+               shadowMapHeight: 2048;
+               shadowMapWidth: 2048; 
+               color: #FFFFFF"
+        position="0 0 0"
+       ></a-entity>
 
       <a-entity
         position="0 0 0"
