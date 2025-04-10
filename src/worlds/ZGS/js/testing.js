@@ -13,7 +13,6 @@ AFRAME.registerComponent("emit-pickedup", {
 AFRAME.registerComponent("emit-positionlocked", {
   init: function () {
     this.el.addEventListener("click", () => {
-      
       changeEnvironment();
 
       const seed = document.querySelector("#seed");
@@ -21,7 +20,7 @@ AFRAME.registerComponent("emit-positionlocked", {
         message: "Seed position has been locked!",
       });
       console.log("Position Locked event emitted.");
-      console.log("Testing Update")
+      console.log("Testing Update");
     });
   },
 });
@@ -42,31 +41,31 @@ AFRAME.registerComponent("handle-seed-events", {
 
 function changeEnvironment() {
   console.log("Environment Function being called.");
-    // Get the A-Frame scene
-    const scene = document.querySelector('a-scene');
-    if (!scene) {
-      console.error("Scene not found!");
-      return;
-    }
-  let newEnvironment = document.createElement('a-entity');
-  newEnvironment.setAttribute('environment', {
-    preset: 'forest', 
-    groundColor:'#F4A460',
-    skyColor: '#87CEEB', 
-    horizonColor: '#FFD27F',
-    fog: '0.5',
-    groundTexture: 'walkernoise',
-    groundColor2: '#2E8B57',
-    grid: 'none'
-    });
-  newEnvironment.setAttribute('position', '0 -13 0');
+  // Get the A-Frame scene
+  const scene = document.querySelector("a-scene");
+  if (!scene) {
+    console.error("Scene not found!");
+    return;
+  }
+  let newEnvironment = document.createElement("a-entity");
+  newEnvironment.setAttribute("environment", {
+    preset: "forest",
+    groundColor: "#F4A460",
+    skyColor: "#87CEEB",
+    horizonColor: "#FFD27F",
+    fog: "0.5",
+    groundTexture: "walkernoise",
+    groundColor2: "#2E8B57",
+    grid: "none",
+  });
+  newEnvironment.setAttribute("position", "0 -13 0");
   scene.appendChild(newEnvironment);
-  newEnvironment.setAttribute('animation', {
-    property: 'position',
-    to: '0 0.12 0', 
-    dur: '2000',
-    easing: 'linear'
-    });
+  newEnvironment.setAttribute("animation", {
+    property: "position",
+    to: "0 0.12 0",
+    dur: "2000",
+    easing: "linear",
+  });
 
-    console.log("Environment changed successfully.");
+  console.log("Environment changed successfully.");
 }

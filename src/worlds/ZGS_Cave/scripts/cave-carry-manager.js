@@ -48,6 +48,19 @@ AFRAME.registerComponent("carry-manager", {
     };
     const params = CONTEXT_AF.getParams(window.location.href);
 
+    if (params.hasOwnProperty("hubState")) {
+      if (params["hubState"] === "env") {
+        //DO HUB STUFF HERE :)
+        console.log("Env change is on!");
+        CONTEXT_AF.setHubURL(params["hubState"]);
+      } else if (params["hubState"] === "house") {
+        //DO HUB STUFF HERE :)
+        console.log("House change is on!");
+        CONTEXT_AF.setHubURL(params["hubState"]);
+      } else {
+        console.log("Env/house change is off...");
+      }
+    }
     if (params.hasOwnProperty("carry")) {
       if (params["carry"] === "on") {
         //DO SEED STUFF HERE :)
@@ -112,8 +125,12 @@ AFRAME.registerComponent("carry-manager", {
     url.searchParams.set("carry", seedID);
     history.replaceState(history.state, "", url.href);
   },
-  // //add this property to allow the fire to still be on when coming back
-  // let url = new URL(window.location.href);
-  // url.searchParams.set('fire', (turnOn) ? 'on' : 'off');
-  // history.replaceState(history.state, '', url.href);
+  setHubURL: function (hubID) {
+    const CONTEXT_AF = this;
+
+    //add this property to allow the seed to still be in hand when coming back
+    let url = new URL(window.location.href);
+    url.searchParams.set("hubState", hubID);
+    history.replaceState(history.state, "", url.href);
+  },
 });
