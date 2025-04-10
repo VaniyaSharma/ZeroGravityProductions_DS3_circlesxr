@@ -54,6 +54,9 @@ AFRAME.registerComponent('position-locker', {
     }
   });
 
+  let environmentBool = false;
+  let houseBool       = false;
+
   document.addEventListener('DOMContentLoaded', function () {
     const seed = document.querySelector('#seed');
   
@@ -61,6 +64,15 @@ AFRAME.registerComponent('position-locker', {
       seed.addEventListener('positionLocked', function (event) {
         console.log('Seed locked at position:', event.detail.position);
         // Logic goes here
+        if (!environmentBool)
+          changeEnvironment();
+        else {
+          console.log('Environment change already triggered')
+          if (houseBool)
+            console.log('House change already triggered')
+          else
+            changeHouse();
+        }
       });
 
       seed.addEventListener('positionUnlocked', function (event) {
@@ -69,3 +81,55 @@ AFRAME.registerComponent('position-locker', {
       });
     }
   });
+
+  function changeEnvironment() {
+    if (!environmentBool)
+    {
+      //Removing old environment
+      oldEnvironment = document.querySelector("#oldEnv");
+      console.log(oldEnvironment);
+      oldEnvironment.setAttribute("environment", {
+        groundTexture: 'walkernoise',
+        groundColor: '#F4A460',
+        groundColor2: '#2E8B57',
+      });
+
+    console.log("Environment Function being called.");
+      // Get the A-Frame scene
+      const scene = document.querySelector('a-scene');
+      if (!scene) {
+        console.error("Scene not found!");
+        return;
+      }
+    let newEnvironment = document.createElement('a-entity');
+    newEnvironment.setAttribute('environment', {
+      preset: 'forest', 
+      groundColor:'#F4A460',
+      skyType: 'none', 
+      fog: '0.5',
+      ground: 'none',
+      lighting: 'none' 
+      });
+    newEnvironment.setAttribute('position', '0 -13 0');
+    scene.appendChild(newEnvironment);
+    newEnvironment.setAttribute('animation', {
+      property: 'position',
+      to: '0 0.12 0', 
+      dur: '2000',
+      easing: 'linear'
+      });
+  
+      console.log("Environment changed successfully.");
+      environmentBool = true;
+    }
+  }
+
+  function changeHouse() {
+    console.log("House Function being called.");
+    if (!houseBool)
+    {
+      // Put house animation here
+
+      houseBool = true;
+    }
+  }

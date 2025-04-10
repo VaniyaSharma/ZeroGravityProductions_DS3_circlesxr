@@ -26,6 +26,10 @@ AFRAME.registerComponent("emit-positionlocked", {
   },
 });
 
+//Checks for environment change
+let environmentBool = false;
+let housebool       = false;
+
 // Component to handle 'pickedup' and 'positionLocked' events
 AFRAME.registerComponent("handle-seed-events", {
   init: function () {
@@ -35,12 +39,31 @@ AFRAME.registerComponent("handle-seed-events", {
 
     this.el.addEventListener("positionLocked", function (event) {
       console.log(event.detail.message);
-      changeEnvironment();
+      if (!environmentBool)
+        changeEnvironment();
+      else {
+        console.log('Environment change already triggered')
+        if (houseBool)
+          console.log('House change already triggered')
+        else
+          changeHouse();
+      }
     });
   },
 });
 
 function changeEnvironment() {
+  if (!environmentBool)
+  {
+    //Removing old environment
+    oldEnvironment = document.querySelector("#oldEnv");
+    console.log(oldEnvironment);
+    oldEnvironment.setAttribute("environment", {
+      groundTexture: 'walkernoise',
+      groundColor: '#F4A460',
+      groundColor2: '#2E8B57',
+    });
+
   console.log("Environment Function being called.");
     // Get the A-Frame scene
     const scene = document.querySelector('a-scene');
@@ -52,12 +75,10 @@ function changeEnvironment() {
   newEnvironment.setAttribute('environment', {
     preset: 'forest', 
     groundColor:'#F4A460',
-    skyColor: '#87CEEB', 
-    horizonColor: '#FFD27F',
+    skyType: 'none', 
     fog: '0.5',
-    groundTexture: 'walkernoise',
-    groundColor2: '#2E8B57',
-    grid: 'none'
+    ground: 'none',
+    lighting: 'none' 
     });
   newEnvironment.setAttribute('position', '0 -13 0');
   scene.appendChild(newEnvironment);
@@ -69,4 +90,10 @@ function changeEnvironment() {
     });
 
     console.log("Environment changed successfully.");
+    environmentBool = true;
+  }
+}
+
+function changeHouse() {
+  // Put house animation here
 }
