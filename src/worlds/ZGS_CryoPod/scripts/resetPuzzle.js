@@ -1,44 +1,41 @@
 AFRAME.registerComponent('reset-puzzle', {
-    init: function () {
-        // Get the button and listen for its click event
-        const resetButton = this.el;
-        // Listen for the button press event
-        resetButton.addEventListener('circles-button-click', this.resetPuzzle.bind(this));
-    },
-  
-    resetPuzzle: function () {
-      //Check
-      console.log("Reset button pressed")
-      // Get all orbs
-      const orb1 = document.querySelector('#orb1');
-      const orb2 = document.querySelector('#orb2');
-      const orb3 = document.querySelector('#orb3');
-  
-      // Get their original positions from the HTML position attributes
-      const originalPositions = {
-        orb1: orb1.getAttribute('position'),
-        orb2: orb2.getAttribute('position'),
-        orb3: orb3.getAttribute('position')
-      };
-  
-      // Function to reset an orb to its original position
-      const resetOrb = (orb, originalPos) => {
-        // Set orb position
-        orb.setAttribute('position', originalPos);
-        // Unlock its position if it was locked
-        const positionLocker = orb.components['position-locker'];
-        if (positionLocker && positionLocker.isLocked) {
-          positionLocker.isLocked = false;
+  init: function () {
+    this.orbIds = ['orb1', 'orb2', 'orb3'];
+    this.originalPositions = {};
+
+    // Store original positions when scene loads
+    this.orbIds.forEach(id => {
+      const orb = document.getElementById(id);
+      if (orb) {
+        this.originalPositions[id] = Object.assign({}, orb.getAttribute('position'));
+        console.log(`Stored initial position of ${id}:`, this.originalPositions[id]);
+      } else {
+        console.warn(`Orb with ID '${id}' not found on init.`);
+      }
+    });
+
+    // Listen for button click
+    this.el.addEventListener('click', () => {
+      console.log("Reset button was pressed!");
+
+      this.orbIds.forEach(id => {
+        const orb = document.getElementById(id);
+        const originalPos = this.originalPositions[id];
+
+        if (orb && originalPos) {
+          orb.setAttribute('position', originalPos);
+
+          const locker = orb.components['position-locker'];
+          if (locker) {
+            locker.isLocked = false;
+          }
+
           orb.emit('positionUnlocked', { position: originalPos });
-          console.log(`${orb.id} unlocked and reset.`);
+          console.log(`${id} reset to original position:`, originalPos);
+        } else {
+          console.warn(`Couldn't reset orb '${id}' — missing orb or stored position.`);
         }
-      };
-  
-      // Reset all orbs
-      resetOrb(orb1, originalPositions.orb1);
-      resetOrb(orb2, originalPositions.orb2);
-      resetOrb(orb3, originalPositions.orb3);
-  
-      console.log("Puzzle reset to original positions.");
-    }
-  });
+      });
+    });
+  }
+});

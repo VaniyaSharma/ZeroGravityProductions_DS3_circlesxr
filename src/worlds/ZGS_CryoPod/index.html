@@ -5,8 +5,16 @@
 
     <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
     <script src="https://github.com/msfeldstein/aframe-environment-map-component"></script>
+
+    <!-- ZGS Scripts-->
     <script src="scripts/cryo-carry-manager.js"></script>
-    <script src="scripts/flashlight.js"></script>
+    <script src="scripts/orb-placement-checker.js"></script>
+    <script src="scripts/position-locker.js"></script>
+    <script src="scripts/puzzle-button-trigger.js"></script>
+    <script src="scripts/resetPuzzle.js"></script>
+
+    <!--Geometry Script-->
+    <script src="scripts/GlassGeo.js"></script>
   </head>
   <body>
     <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
@@ -23,10 +31,31 @@
         />
 
         <a-asset-item
-          id="enviro_glb"
-          src="assets/Walls.glb"
+          id="wallback_glb"
+          src="assets/Walls/Wall_back.glb"
           response-type="arraybuffer"
         ></a-asset-item>
+        <a-asset-item
+          id="wallfront_glb"
+          src="assets/Walls/Wall_front.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="wallleft_glb"
+          src="assets/Walls/Wall_left.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="wallright_glb"
+          src="assets/Walls/Wall_right.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="walltop_glb"
+          src="assets/Walls/Wall_top.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
         <a-asset-item
           id="table_glb"
           src="assets/Table.glb"
@@ -52,6 +81,13 @@
           src="assets/CryoPodPillow.glb"
           response-type="arraybuffer"
         ></a-asset-item>
+
+        <a-asset-item
+          id="glass_glb"
+          src="assets/CryoGlass.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
         <a-asset-item
           id="sign_glb"
           src="assets/Sign.glb"
@@ -62,6 +98,13 @@
           src="assets/PersonPre.glb"
           response-type="arraybuffer"
         ></a-asset-item>
+
+        <a-asset-item
+          id="personpost_glb"
+          src="assets/PersonPost.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
         <a-asset-item
           id="nav_glb"
           src="assets/Nav.glb"
@@ -115,7 +158,7 @@
         id="personpre"
         gltf-model="#personpre_glb"
         position="0 0.045 0"
-        shadow="receive: true; cast: true"
+        shadow="receive: true; cast: true;"
       ></a-entity>
 
       <!-- environment -->
@@ -125,12 +168,36 @@
         circles-spawnpoint
         position="-0.45 0.040 4"
       ></a-entity>
-
+      <!-- Walls -->
       <a-entity
-        id="walls"
+        id="wall_back"
         position="0 0 0"
-        gltf-model="#enviro_glb"
-        shadow="receive: true; cast: false"
+        gltf-model="#wallback_glb"
+        shadow="receive: true; cast: false;"
+      ></a-entity>
+      <a-entity
+        id="wall_front"
+        position="0 0 0"
+        gltf-model="#wallfront_glb"
+        shadow="receive: true; cast: false;"
+      ></a-entity>
+      <a-entity
+        id="wall_left"
+        position="0 0 0"
+        gltf-model="#wallleft_glb"
+        shadow="receive: true; cast: false;"
+      ></a-entity>
+      <a-entity
+        id="wall_right"
+        position="0 0 0"
+        gltf-model="#wallright_glb"
+        shadow="receive: true; cast: false;"
+      ></a-entity>
+      <a-entity
+        id="wall_top"
+        position="0 0 0"
+        gltf-model="#walltop_glb"
+        shadow="receive: true; cast: false;"
       ></a-entity>
 
       <a-entity
@@ -138,19 +205,35 @@
         position="0 0 0"
         gltf-model="#cryoPods_glb"
       ></a-entity>
+      <a-entity
+        id="glass1"
+        position="-0.47 1.449 -3.341"
+        rotation="-6.310 0 0"
+        scale   ="0.872 1.376 1.935"
+        geometry="primitive: cryoGlass;"
+        material="color: #ffffff; opacity: 0.620; transparent: true; metalness: 0.9; roughness: 0.1; envMapIntensity: 1"
+      ></a-entity>
+      <a-entity
+        id="glass2"
+        position="-0.47 1.445 -3.378"
+        rotation="-6.310 0 0"
+        scale   ="0.872 1.376 1.935"
+        geometry="primitive: cryoGlass;"
+        material="color: #ffffff; opacity: 0.620; transparent: true; metalness: 0.9; roughness: 0.1; envMapIntensity: 1"
+      ></a-entity>
 
       <a-entity
         id="table"
         position="0 -0.02 0"
         gltf-model="#table_glb"
-        shadow="cast: true"
+        shadow="receive: true; cast: true;"
       ></a-entity>
 
       <a-entity
         id="monitor"
         position="-0.032 0.045 0.059"
         gltf-model="#monitor_glb"
-        shadow="cast: true"
+        shadow="receive: false; cast: true"
       >
       <a-image
         src="#Monitor_img"
@@ -161,23 +244,25 @@
       ></a-image>
       <a-entity
         id="monitor_puzzle_button"
-        position="1.920 1.166 -2.307"
-        rotation="0.084 35.47 90"
-        circles-button="pedestal_visible: false;
-                        diameter:0.;
-                        button_color: #61fffc;
-                        button_color_hover: #85ffca;"
-        puzzle-completion-trigger="socketIds: socket1, socket2, socket3;"
-      ></a-entity>
-      <a-entity
-        id="monitor_reset_button"
-        position="2.324 1.165 -1.732"
-        rotation="1.222 35.23 90"
-        circles-button="pedestal_visible: false;
+        position="1.891 1.166 -2.292"
+        rotation="0.084 38.28 90" 
+        circles-button="pedastal_visible: false;
                         diameter:0.5;
                         button_color: #61fffc;
                         button_color_hover: #85ffca;"
-        reset-puzzle
+        puzzle-button-trigger="socketIds: socket1, socket2, socket3;"
+        shadow="receive: false; cast: true;"
+      ></a-entity>
+      <a-entity
+        id="monitor_reset_button"
+        position="2.301 1.165 -1.716"
+        rotation="1.222 32.50 90"
+        circles-button="pedastal_visible: false;
+                        diameter:0.5;
+                        button_color: #61fffc;
+                        button_color_hover: #85ffca;"
+        reset-puzzle 
+        shadow="receive: false; cast: true;"
       ></a-entity>
       </a-entity>
 
@@ -185,23 +270,22 @@
         id="pipes"
         position="0 0.045 0"
         gltf-model="#pipes_glb"
-        shadow="receive: true; cast: true"
+        shadow="receive: true; cast: true;"
       ></a-entity>
 
       <a-entity
         id="pillow"
         position="0 0.045 0"
         gltf-model="#pillow_glb"
-        shadow="receive: true;"
+        shadow="receive: true; cast: false;"
       ></a-entity>
 
       <a-entity
         id="sign"
         position="0 0.045 0"
         gltf-model="#sign_glb"
-        shadow="receive: true; cast: true"
+        shadow="receive: true; cast: true;"
       ></a-entity>
-</a-image>
 
       <a-entity environment="
         preset:yavapai; 
