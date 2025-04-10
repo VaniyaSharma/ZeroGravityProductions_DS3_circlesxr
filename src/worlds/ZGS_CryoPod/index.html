@@ -145,7 +145,7 @@
       <a-entity
         id="seed"
         gltf-model="#seed_glb"
-        position="-0.50 0.6 -0.2"
+        position="-2.1 1.43 -0.2"
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
@@ -204,18 +204,12 @@
         id="pod"
         position="0 0 0"
         gltf-model="#cryoPods_glb"
+        shadow="receive: true; cast: false;"
       ></a-entity>
+
       <a-entity
-        id="glass1"
-        position="-0.47 1.449 -3.341"
-        rotation="-6.310 0 0"
-        scale   ="0.872 1.376 1.935"
-        geometry="primitive: cryoGlass;"
-        material="color: #ffffff; opacity: 0.620; transparent: true; metalness: 0.9; roughness: 0.1; envMapIntensity: 1"
-      ></a-entity>
-      <a-entity
-        id="glass2"
-        position="-0.47 1.445 -3.378"
+        id="podglass"
+        position="-0.47 1.449 -3.398"
         rotation="-6.310 0 0"
         scale   ="0.872 1.376 1.935"
         geometry="primitive: cryoGlass;"
@@ -284,7 +278,6 @@
         id="sign"
         position="0 0.045 0"
         gltf-model="#sign_glb"
-        shadow="receive: true; cast: true;"
       ></a-entity>
 
       <a-entity environment="
@@ -324,16 +317,16 @@
        <a-entity
         id="RoomLight2"
         light="type: point; 
-               intensity: 30; 
+               intensity: 30;
                distance: 25;
                decay: 2;
                castShadow: true;
                shadowBias: -0.002;
                shadowCameraFov: 100;
                shadowMapHeight: 2048;
-               shadowMapWidth: 2048; 
+               shadowMapWidth: 2048;
                color: #FFFFFF"
-        position="0 3.500 0"
+        position="0 5.6 -3.230"
        ></a-entity>
 
       <a-entity
