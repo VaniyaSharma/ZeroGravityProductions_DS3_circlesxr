@@ -67,7 +67,7 @@ AFRAME.registerComponent('circles-pickup-object', {
 
     const pickupPos  = (data.pickupPosition.x < 100001.0) ? {x:data.pickupPosition.x, y:data.pickupPosition.y, z:data.pickupPosition.z} : thisPos;
     const pickupRot  = (data.pickupRotation.x < 100001.0) ? {x:data.pickupRotation.x, y:data.pickupRotation.y, z:data.pickupRotation.z} : thisRot;
-    const pickupSca  = (data.pickupScale.x < 100001.0) ? {x:data.pickupScale.x, y:data.pickupScale.y, z:data.pickupScale.z} : {x:CONTEXT_AF.originalScale.x, y:CONTEXT_AF.originalScale.y, z:CONTEXT_AF.originalScale.z};
+    const pickupSca = {x:CONTEXT_AF.originalScale.x, y:CONTEXT_AF.originalScale.y, z:CONTEXT_AF.originalScale.z};
     
 
     //set pickup transforms

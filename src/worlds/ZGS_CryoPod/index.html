@@ -115,6 +115,23 @@
           src="assets/Seed.glb"
           crossorigin="anonymous"
         ></a-asset-item>
+
+        <a-asset-item
+          id="orb1_glb"
+          src="assets/Orbs/Plant.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="orb2_glb"
+          src="assets/Orbs/Frog1.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="orb3_glb"
+          src="assets/Orbs/Gear.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
         <a-assets>
           <img id="Monitor_img"
                src="assets/Monitor_Images/MonitorScreen.png">
@@ -160,6 +177,55 @@
         position="0 0.045 0"
         shadow="receive: true; cast: true;"
       ></a-entity>
+
+      <!--Orb 1-->
+      <a-entity
+        id="orb1"
+        geometry="primitive: sphere; segmentsWidth: 8; segmentsHeight: 8;"
+        position="0 1 0"
+        rotation="0 0 0"
+        scale="1 1 1"
+        circles-pickup-object="animate:false;"
+        circles-interactive-object="type:highlight;"
+        circles-pickup-networked
+        position-locker="threshold: 0.1"
+      >
+      <a-entity
+        id="orb1_inside"
+        gltf-model="#orb1_glb"
+        position="0 0 0"
+        rotation="0 180 0"
+        scale="2 2 2"
+        circles-lookat="targetElement:#myCam; constrainYAxis:false;"
+      ></a-entity>
+    </a-entity>
+
+      <!--Orb 2-->
+      <a-entity
+        id="orb2"
+        gltf-model="#orb2_glb"
+        position="1 1 0"
+        rotation="0 135 0"
+        circles-pickup-object="animate:false;"
+        circles-interactive-object="type:highlight;"
+        circles-pickup-networked
+        position-locker="threshold: 0.1"
+        >
+      </a-entity>
+
+      <!--Orb 3-->
+      <a-entity
+        id="orb3"
+        gltf-model="#orb3_glb"
+        position="0.5 1 0"
+        rotation="0 135 0"
+        circles-pickup-object="animate:false;"
+        circles-interactive-object="type:highlight;"
+        circles-pickup-networked
+        position-locker="threshold: 0.1"
+        >
+      </a-entity>
+
 
       <!-- environment -->
       <!-- the environment -->
