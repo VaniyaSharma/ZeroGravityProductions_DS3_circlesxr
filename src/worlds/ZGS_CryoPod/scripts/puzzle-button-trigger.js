@@ -6,15 +6,31 @@ AFRAME.registerComponent('puzzle-button-trigger', {
       init: function () {
         this.el.addEventListener('click', () => {
           const socketIds = this.data.socketIds;
-          const allPlaced = socketIds.every(id => {
+          let allPlaced = true;
+
+          console.log('Checking the following socket IDs:', socketIds);
+          socketIds.forEach(id => {
             const socketEl = document.getElementById(id);
+
             if (!socketEl) {
               console.warn(`Socket ${id} not found.`);
-              return false;
+              allPlaced = false;
+              return  ;
             }
+
             const checker = socketEl.components['orb-placement-checker'];
-            return checker && checker.correctlyPlaced;
-          });
+            if(!checker) {
+              console.warn(`Orb-placement-checker not found on '${id}'.`);
+              allPlaced = false;
+              return;
+            }
+            
+            const isCorrect = checker.isCorrectlyPlaced();
+            console.log(`Socket '${id}': correctlyPlaced = ${isCorrect}`);
+            if (!isCorrect) {
+              allPlaced = false;
+            }
+          }); 
     
           if (allPlaced) {
             console.log('Puzzle completed!');

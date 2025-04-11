@@ -1,24 +1,42 @@
 AFRAME.registerComponent('reset-puzzle', {
+  schema: {
+    orbIds: { type: 'array' } // List of socket entity IDs
+  },
   init: function () {
-    this.orbIds = ['orb1', 'orb2', 'orb3'];
     this.originalPositions = {};
+    this.puzzleIsComplete = false;
+    const sceneEl = this.el.sceneEl;
 
     // Store original positions when scene loads
-    this.orbIds.forEach(id => {
-      const orb = document.getElementById(id);
-      if (orb) {
-        this.originalPositions[id] = Object.assign({}, orb.getAttribute('position'));
-        console.log(`Stored initial position of ${id}:`, this.originalPositions[id]);
-      } else {
-        console.warn(`Orb with ID '${id}' not found on init.`);
-      }
+    sceneEl.addEventListener('loaded', () => {
+      this.data.orbIds.forEach(id => {
+        const orb = document.getElementById(id);
+        if (orb) {
+          const posAttr = orb.getAttribute('position');
+          this.originalPositions[id] = { x: posAttr.x, y: posAttr.y, z: posAttr.z };
+          console.log(`Stored initial position of ${id}:`, this.originalPositions[id]);
+        } else {
+          console.warn(`Orb with ID '${id}' not found on init.`);
+        }
+      });
+    });
+
+    // Listen for puzzle completion
+    sceneEl.addEventListener('puzzleCompleted', () => {
+      console.log('Puzzle completed — reset disabled.');
+      this.puzzleIsComplete = true;
     });
 
     // Listen for button click
     this.el.addEventListener('click', () => {
+      
+      if (this.puzzleIsComplete) {
+        console.log("⚠️ Reset blocked — puzzle already completed.");
+        return;
+      }
       console.log("Reset button was pressed!");
 
-      this.orbIds.forEach(id => {
+      this.data.orbIds.forEach(id => {
         const orb = document.getElementById(id);
         const originalPos = this.originalPositions[id];
 

@@ -12,6 +12,8 @@ AFRAME.registerComponent('orb-placement-checker', {
 
       console.log(`Orb with ID '${placedOrbId}' placed in socket expecting '${this.data.expectedOrbId}'`);
 
+      this.orbPlaced = placedOrbId;
+
       if (placedOrbId === this.data.expectedOrbId) {
         this.orbPlaced = placedOrbId;
         console.log(`Correct orb placed in ${this.el.id}`);
