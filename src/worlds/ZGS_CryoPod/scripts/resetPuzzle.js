@@ -31,7 +31,7 @@ AFRAME.registerComponent('reset-puzzle', {
     this.el.addEventListener('click', () => {
       
       if (this.puzzleIsComplete) {
-        console.log("⚠️ Reset blocked — puzzle already completed.");
+        console.log("Reset blocked — puzzle already completed.");
         return;
       }
       console.log("Reset button was pressed!");

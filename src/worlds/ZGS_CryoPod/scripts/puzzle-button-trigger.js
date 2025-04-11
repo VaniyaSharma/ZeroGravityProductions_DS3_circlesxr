@@ -25,7 +25,7 @@ AFRAME.registerComponent('puzzle-button-trigger', {
               return;
             }
             
-            const isCorrect = checker.isCorrectlyPlaced();
+            const isCorrect = checker.correctlyPlaced;
             console.log(`Socket '${id}': correctlyPlaced = ${isCorrect}`);
             if (!isCorrect) {
               allPlaced = false;
@@ -34,14 +34,90 @@ AFRAME.registerComponent('puzzle-button-trigger', {
     
           if (allPlaced) {
             console.log('Puzzle completed!');
-            // Global event to trigger animation, next stage, audio, etc.
+            // Global event to trigger stuff
             this.el.emit('puzzleCompleted', {}, true);
+            
+            const podGlass = document.getElementById('podglass');
+            const personPre = document.getElementById('personpre');
 
+            // 1. Fog up the glass (increase opacity and color to white)
+            podGlass.setAttribute('animation__fogin_opcaity', {
+              property: 'material.opacity',
+              to: 1,
+              dur: 1000,
+              easing: 'easeInOutQuad'
+            });
+            podGlass.setAttribute('animation__fogin_color', {
+              property: 'material.color',
+              to: '#FFFFFF',
+              dur: 1000,
+              easing: 'easeInOutQuad'
+            });
+            podGlass.setAttribute('animation__fogin_metal', {
+              property: 'material.metalness',
+              to: 0,
+              dur: 1000,
+              easing: 'easeInOutQuad'
+            });
 
-          } 
-          else {
-            console.log('Puzzle incomplete.');
+            // 2. Swap model after 1 second
+            setTimeout(() => {
+              personPre.setAttribute('gltf-model', '#personpost_glb');
+            }, 1000);
+
+            // 3. Restore color and opacity after 2 seconds
+        setTimeout(() => {
+          podGlass.setAttribute('animation__fogout_opacity', {
+            property: 'material.opacity',
+            to: 0.62,
+            dur: 1000,
+            easing: 'easeInOutQuad'
+          });
+
+          podGlass.setAttribute('animation__fogout_color', {
+            property: 'material.color',
+            to: '#D9EBFF', // Replace with original color
+            dur: 1000,
+            easing: 'easeInOutQuad'
+          });
+
+          podGlass.setAttribute('animation__fogout_metal', {
+            property: 'material.metalness',
+            to: 0.9,
+            dur: 1000,
+            easing: 'easeInOutQuad'
+          });
+        }, 2000);
+
+        // Raise the seed pedestal
+        setTimeout(() => {
+          const seed = document.getElementById('seed');
+          const seedHolder = document.getElementById('seedHolder');
+
+          if (seedHolder) {
+            seedHolder.setAttribute('animation__raise', {
+              property: 'position',
+              to: `2.653 0.1 -0.283`,
+              dur: 1000,
+              easing: 'easeOutCubic'
+            });
           }
-        });
+
+          if (seed) {
+            seed.setAttribute('animation__raise', {
+              property: 'position',
+              to: `2.480 0.980 -0.320`,
+              dur: 1000,
+              easing: 'easeOutCubic'
+            });
+          }
+
+          console.log('Seed pedestal is rising.');
+        }, 3000); // Delay this to occur after glass animations
+      } 
+      else {
+        console.log('Puzzle incomplete.');
       }
     });
+  }
+});

@@ -1,38 +1,35 @@
 AFRAME.registerComponent('orb-placement-checker', {
   schema: {
-    expectedOrbId: { type: 'string' }  // ID of the orb expected in this socket
+    expectedOrbId: { type: 'string' },
+    threshold:     { type: 'number', default: 0.2 }
   },
-
   init: function () {
-    this.orbPlaced = null;
+    this.orbEl = document.getElementById(this.data.expectedOrbId);
+    if (!this.orbEl) {
+      console.warn(`Orb with id '${this.data.expectedOrbId}' not found.`);
+    }
 
-    this.el.addEventListener('positionLocked', (evt) => {
-      const placedOrb = evt.target;
-      const placedOrbId = placedOrb.getAttribute('id');
-
-      console.log(`Orb with ID '${placedOrbId}' placed in socket expecting '${this.data.expectedOrbId}'`);
-
-      this.orbPlaced = placedOrbId;
-
-      if (placedOrbId === this.data.expectedOrbId) {
-        this.orbPlaced = placedOrbId;
-        console.log(`Correct orb placed in ${this.el.id}`);
-        // Something to indicate its correct
-
-      } else {
-        console.log(`Incorrect orb. Expected '${this.data.expectedOrbId}' but got '${placedOrbId}'`);
-        // Something to indicate its wrong
-      }
-    });
-
-    this.el.addEventListener('positionUnlocked', () => {
-      this.orbPlaced = null;
-      console.log(`Orb removed from ${this.el.id}`);
-      // Something to probably indicate that there is nothing on it.
-    });
+    this.correctlyPlaced = false;
+    this.previousState = null; // Track last placement state
   },
+  tick: function () {
+    if (!this.orbEl) return;
 
-  isCorrectlyPlaced: function () {
-    return this.orbPlaced === this.data.expectedOrbId;
+    const orbWorldPos = new THREE.Vector3();
+    const socketWorldPos = new THREE.Vector3();
+
+    this.el.object3D.getWorldPosition(socketWorldPos);
+    this.orbEl.object3D.getWorldPosition(orbWorldPos);
+
+    const distance = socketWorldPos.distanceTo(orbWorldPos);
+
+    // Only mark correctlyPlaced if the specific orb is within the threshold
+    const isNowCorrect = distance <= this.data.threshold;
+
+    if (isNowCorrect !== this.previousState) {
+      this.correctlyPlaced = isNowCorrect;
+      console.log(`Socket '${this.el.id}': correctlyPlaced = ${this.correctlyPlaced}`);
+      this.previousState = isNowCorrect;
+    }
   }
 });
