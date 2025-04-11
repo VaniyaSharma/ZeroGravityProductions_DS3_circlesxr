@@ -51,17 +51,35 @@ function melodyComplete() {
   // CONTEXT_AF = this;
   console.log("Melody complete.");
 
+  const paramsX = getParams(window.location.href);
+
+  //set URL
+
+  const CONTEXT_AF = this;
+
+  let url = new URL(window.location.href);
+
   if (!instant) {
     setTimeout(function () {
       melodyMusic.components.sound.playSound();
     }, 1500);
     setTimeout(function () {
       seed.setAttribute("position", "0.3 2 0");
-      seed.addEventListener("click", function () {
-        seedLight.setAttribute("position", "0 -100 0");
-      });
     }, 11000);
+
+    url.searchParams.set("caveState", "seed");
+    history.replaceState(history.state, "", url.href);
+  } else if (
+    paramsX.hasOwnProperty("caveState") &&
+    paramsX["caveState"] === "seed"
+  ) {
+    seed.setAttribute("position", "0.3 2 0");
   }
+  seed.addEventListener("click", function () {
+    seedLight.setAttribute("position", "0 -100 0");
+    url.searchParams.set("caveState", "done");
+    history.replaceState(history.state, "", url.href);
+  });
   canClick = false;
   cube.classList.remove("circles-interactive-object");
   diamond.classList.remove("circles-interactive-object");
@@ -73,15 +91,6 @@ function melodyComplete() {
   diamondLight.setAttribute("position", "0 -100 0");
   triangleLight.setAttribute("position", "0 -100 0");
   sphereLight.setAttribute("position", "0 -100 0");
-
-  //set URL
-
-  const CONTEXT_AF = this;
-
-  //add this property to allow the seed to still be in hand when coming back
-  let url = new URL(window.location.href);
-  url.searchParams.set("caveState", "done");
-  history.replaceState(history.state, "", url.href);
 }
 
 function checkCaveState() {
@@ -100,9 +109,7 @@ function checkCaveState() {
   const params = getParams(window.location.href);
 
   if (params.hasOwnProperty("caveState")) {
-    if (params["caveState"] === "done") {
-      //hard code this. dammit
-
+    if (params["caveState"] === "done" || params["caveState"] === "seed") {
       instant = true;
       melodyComplete();
 

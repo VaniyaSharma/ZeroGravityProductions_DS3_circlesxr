@@ -83,10 +83,10 @@ AFRAME.registerComponent("carry-manager", {
         // );
 
         // else
-        setTimeout(function () {
-          CONTEXT_AF.seed.click();
-        }, 3000);
-        CONTEXT_AF.setSeedURL(params["carry"]);
+        // setTimeout(function () {
+        //   CONTEXT_AF.seed.click();
+        // }, 3000);
+        // CONTEXT_AF.setSeedURL(params["carry"]);
       } else if (params["carry"] === "test") {
         console.log("Carry component is: " + params["carry"]);
         CONTEXT_AF.setSeedURL("tested");
