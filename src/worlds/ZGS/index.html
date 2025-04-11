@@ -261,7 +261,7 @@
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
-        position-locker="target: 0.0 1.400 1.132; threshold: 0.3"
+        position-locker="threshold: 0.5"
         pickup-detector
       ></a-entity>
 
@@ -269,14 +269,15 @@
         id="pedestal"
         gltf-model="#pedestal_glb"
         shadow="receive: true; cast: true"
-        position="0.781 0.888 0.436"
+        position="0.846 0.888 0.569"
         scale=" 1.479 1.479 1.479"
-      ></a-entity>
+      >
       <a-entity
         id="collider"
         position="0 0.800 0"
-        collider  
+        collider
       ></a-entity>
+      </a-entity>
 
       <!---Banners-->
       <!-- box -->
@@ -396,15 +397,15 @@
 <!--checkpoints-->
 
       <!-- spawn point -->
-      <a-entity id="spawnPoint" position="0 0.668 0"></a-entity>
-
-<a-entity circles-checkpoint 
-circles-spawnpoint
-position="0.878 0.035 -10.372" ></a-entity>
+      <a-entity 
+      id="spawnPoint"
+      circles-checkpoint 
+      circles-spawnpoint
+      position="0.878 0.035 -10.372" ></a-entity>
 
       <a-entity circles-checkpoint position="-7.832 0.04 -5.440"></a-entity>
 
-      <a-entity circles-checkpoint position="9.474 0.04 -6.530"></a-entity>
+      <a-entity circles-checkpoint position="9.474 0.293 -6.530"></a-entity>
 
       <a-entity circles-checkpoint position="5.422 0.04 10.554"></a-entity>
 
@@ -431,6 +432,12 @@ position="0.878 0.035 -10.372" ></a-entity>
       <a-entity circles-checkpoint position="-5.472 0.04 1.737"></a-entity>
 
       <a-entity circles-checkpoint position="-5.628 0.04 -2.494"></a-entity>
+
+      <!--Pedestal checkpoints-->
+      <a-entity circles-checkpoint position="-0.489 0.881 -0.797"></a-entity>
+      <a-entity circles-checkpoint position="2.240 0.881 -0.818"></a-entity>
+      <a-entity circles-checkpoint position="2.285 0.881 2.032"></a-entity>
+      <a-entity circles-checkpoint position="-0.623 0.881 2.013"></a-entity>
 
       <!-- Add initial moonlight effect -->
       <a-entity
