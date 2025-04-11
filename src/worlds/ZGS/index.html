@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
     <script src="js/pickuplogic.js"></script>
     <script src="js/position-locker.js"></script>
+    <script src="js/cityScape.js"></script>
     <!-- <script src="js/testing.js"></script> -->
     <script src="js/hub-carry-manager.js"></script>
     <script src="js/fire.js"></script>
@@ -43,6 +44,33 @@
           crossorigin="anonymous"
         />
 
+        <img
+          id = "cryo-banner"
+          src = "textures/cryo-pod.png"
+          crossorigin="anonymous"
+        />
+
+        <img
+          id = "music-banner"
+          src = "textures/music-room.png"
+          crossorigin="anonymous"
+        />
+        <img
+          id = "reception-banner"
+          src = "textures/reception.png"
+          crossorigin="anonymous"
+        />
+        <img
+          id = "construction-banner"
+          src = "textures/under_construction.png"
+          crossorigin="anonymous"
+        />
+        <img
+          id = "wardrobe-banner"
+          src = "textures/wardrobe.png"
+          crossorigin="anonymous"
+        />
+
 
         <a-asset-item
           id="enviro-gltf"
@@ -50,22 +78,18 @@
           response-type="arraybuffer"
         ></a-asset-item>
 
-        <a-asset-item
-        id="moon-gltf"
-        src="/worlds/Campfire/assets/models/moon.glb"
-        response-type="arraybuffer"
-      ></a-asset-item>
+        
 
         <a-asset-item
           id="pond_glb"
-          src="assets/smoothedPond.glb"
+          src="assets/ponddd.glb"
           response-type="arraybuffer"
         ></a-asset-item>
 
         <a-asset-item
           id="nav_gltf"
           src="assets/pizza.glb"
-          crossorigin="anonymous"
+          crossorigin="arraybuffer"
         ></a-asset-item>
 
         <a-asset-item
@@ -82,7 +106,12 @@
 
         <a-asset-item
           id="signLamp_glb"
-          src="assets/sign.glb"
+          src="assets/lampsSign.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+        <a-asset-item
+          id="lampGlass_glb"
+          src="assets/glass.glb"
           crossorigin="anonymous"
         ></a-asset-item>
 
@@ -95,8 +124,8 @@
       
 
         <audio
-          id="fireCrackling-snd"
-          src="/worlds/Campfire/assets/audio/fire.mp3"
+          id="env-snd"
+          src="assets/audio/env_music.mp3"
           preload="true"
         ></audio>
 
@@ -110,52 +139,78 @@
       <!-- Circles' built-in manager and avatar [REQUIRED] -->
       <circles-manager-avatar />
 
-      <!-- links to other worlds -->
-      <a-entity
-        id="link_cryo"
-        position="-8.841 1.144 -6.017"
-        rotation="0 -36.659 0"
-        scale="0.100 0.950 1.010"
-        circles-portal="img_src:#link_1_360; title_text:Cryo-pods; link_url:/w/ZGS_CryoPod"
-        shadow
-      ></a-entity>
+      <a-entity id="env_snd" sound="src: #env-snd; autoplay: false; loop: true; volume:5.0"></a-entity>
 
-      <a-entity
-        id="link_cave"
-        position="10.946 1.2 -6.979"
-        rotation="0 -163.750 0"
-        scale="0.100 0.950 1.010"
-        circles-portal="img_src:#link_1_360; title_text:Melody; link_url:/w/ZGS_Cave"
-        shadow
-      ></a-entity>
- 
-      <a-entity
-        id="link_reception"
-        position="0.658 1.3 -10.688"
-        rotation="0 -90.000.750 0"
-        scale="0.100 0.950 1.010"
-        circles-portal="img_src:#link_1_360; title_text:Reception; link_url:/w/ZGS_reception"
-        shadow
-      ></a-entity>
- 
-      <a-entity
-        id="link_wardrobe"
-        position="6.339 1.2 10.846"
-        rotation="0 -220 0"
-        scale="0.100 0.950 1.010"
-        circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; title_text:Wardrobe; link_url:/w/Wardrobe"
-        animation__fireon="property:scale; isRawProperty:true; startEvents:startFireAnim; elasticity:150; autoplay:false; delay:0; dir:normal; dur:1000; easing:easeOutElastic; loop:false; from:0.0001 0.0001 0.0001; to:0.5 0.5 0.5;"
-        animation__fireoff="property:scale; isRawProperty:true; startEvents:stopFireAnim; autoplay:false; delay:0; dir:normal; dur:800; easing:easeOutExpo; loop:false; from:0.5 0.5 0.5; to:0.0001 0.0001 0.0001;"
-        shadow
-      ></a-entity>
+
+      <!-- links to other worlds -->
+      <a-entity id="portals" visible = "false">
+        <a-entity
+          id="link_cryo"
+          position="-8.841 1.144 -6.017"
+          rotation="0 -36.659 0"
+          scale="0.100 0.950 1.010"
+          circles-portal="img_src:#link_1_360; title_text:Cryo-pods; link_url:/w/ZGS_CryoPod"
+          shadow
+        ></a-entity>
+
+        <a-entity
+          id="link_cave"
+          position="10.946 1.2 -6.979"
+          rotation="0 -163.750 0"
+          scale="0.100 0.950 1.010"
+          circles-portal="img_src:#link_1_360; title_text:Melody; link_url:/w/ZGS_Cave"
+          shadow
+        ></a-entity>
+  
+        <a-entity
+          id="link_reception"
+          position="0.658 1.3 -10.688"
+          rotation="0 -90.000.750 0"
+          scale="0.100 0.950 1.010"
+          circles-portal="img_src:#link_1_360; title_text:Reception; link_url:/w/ZGS_reception"
+          shadow
+        ></a-entity>
+  
+        <a-entity
+          id="link_wardrobe"
+          position="6.339 1.2 10.846"
+          rotation="0 -220 0"
+          scale="0.100 0.950 1.010"
+          circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; title_text:Wardrobe; link_url:/w/Wardrobe"
+          animation__fireon="property:scale; isRawProperty:true; startEvents:startFireAnim; elasticity:150; autoplay:false; delay:0; dir:normal; dur:1000; easing:easeOutElastic; loop:false; from:0.0001 0.0001 0.0001; to:0.5 0.5 0.5;"
+          animation__fireoff="property:scale; isRawProperty:true; startEvents:stopFireAnim; autoplay:false; delay:0; dir:normal; dur:800; easing:easeOutExpo; loop:false; from:0.5 0.5 0.5; to:0.0001 0.0001 0.0001;"
+          shadow
+        ></a-entity>
+      </a-entity>
 
 
       <!-- environment -->
       <!-- the environment -->
-
-      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:5,&quot;z&quot;:-995,&quot;xCoreSections&quot;:7,&quot;xWingSections&quot;:5,&quot;zSections&quot;:12,&quot;zWingSections&quot;:5,&quot;ySections&quot;:30},{&quot;x&quot;:0,&quot;z&quot;:-1000,&quot;y&quot;:120,&quot;xCoreSections&quot;:5,&quot;xWingSections&quot;:4,&quot;zSections&quot;:9,&quot;zWingSections&quot;:4,&quot;ySections&quot;:30}]" material="alphaTest: 0; opacity: 2.18; shader: msdf; blending: multiply; dithering: false" position="0 0 407.08653" scale="0.5 0.5 0.5"></a-shader-buildings>
-
-
+      <!-- Buildings arranged in a circle -->
+    <a-entity scale ="0.5 0.5 0.5">
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:5,&quot;z&quot;:-995,&quot;xCoreSections&quot;:7,&quot;xWingSections&quot;:5,&quot;zSections&quot;:12,&quot;zWingSections&quot;:5,&quot;ySections&quot;:30}]" position="72.69565 -10.76921 321.54788" scale="0.5 0.5 0.5" material="shader: msdf; blending: multiply">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:0,&quot;z&quot;:-1000,&quot;y&quot;:120,&quot;xCoreSections&quot;:5,&quot;xWingSections&quot;:4,&quot;zSections&quot;:9,&quot;zWingSections&quot;:4,&quot;ySections&quot;:30}]" position="178.93333 -60.84875 601.3734" scale="0.5 0.5 0.5" material="shader: msdf; blending: multiply">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:10,&quot;z&quot;:-980,&quot;y&quot;:100,&quot;xCoreSections&quot;:6,&quot;xWingSections&quot;:4,&quot;zSections&quot;:11,&quot;zWingSections&quot;:3,&quot;ySections&quot;:28}]" position="15.29858 -60.06462 797.05458" scale="0.6 0.6 0.6" material="opacity: 6.93; shader: msdf; blending: multiply; color: #000000">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:10,&quot;z&quot;:-980,&quot;y&quot;:100,&quot;xCoreSections&quot;:6,&quot;xWingSections&quot;:4,&quot;zSections&quot;:11,&quot;zWingSections&quot;:3,&quot;ySections&quot;:28}]" position="206.17513 -60.79295 513.09933" scale="0.6 0.6 0.6" material="opacity: 6.93; shader: msdf; blending: multiply; color: #000000">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:-10,&quot;z&quot;:-990,&quot;y&quot;:110,&quot;xCoreSections&quot;:6,&quot;xWingSections&quot;:5,&quot;zSections&quot;:10,&quot;zWingSections&quot;:4,&quot;ySections&quot;:30}]" position="-137.45561 -57.3291 693.08059" scale="0.5 0.5 0.5" material="shader: msdf; blending: multiply">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:-10,&quot;z&quot;:-990,&quot;y&quot;:110,&quot;xCoreSections&quot;:6,&quot;xWingSections&quot;:5,&quot;zSections&quot;:10,&quot;zWingSections&quot;:4,&quot;ySections&quot;:30}]" position="-137.43453 -57.3291 487.28008" scale="0.5 0.5 0.5" material="shader: msdf; blending: multiply">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:-5,&quot;z&quot;:-995,&quot;y&quot;:120,&quot;xCoreSections&quot;:5,&quot;xWingSections&quot;:4,&quot;zSections&quot;:9,&quot;zWingSections&quot;:4,&quot;ySections&quot;:32}]" position="-149.244 -70.94304 375.86725" scale="0.5 0.5 0.5" material="shader: msdf; blending: multiply">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:-5,&quot;z&quot;:-995,&quot;y&quot;:120,&quot;xCoreSections&quot;:5,&quot;xWingSections&quot;:4,&quot;zSections&quot;:9,&quot;zWingSections&quot;:4,&quot;ySections&quot;:32}]" position="-62.82174 -70.94304 300.67585" scale="0.5 0.5 0.5" material="shader: msdf; blending: multiply">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:0,&quot;z&quot;:-1000,&quot;y&quot;:120,&quot;xCoreSections&quot;:5,&quot;xWingSections&quot;:4,&quot;zSections&quot;:9,&quot;zWingSections&quot;:4,&quot;ySections&quot;:30}]" position="-707 0 -707" scale="0.5 0.5 0.5">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:10,&quot;z&quot;:-980,&quot;y&quot;:100,&quot;xCoreSections&quot;:6,&quot;xWingSections&quot;:4,&quot;zSections&quot;:11,&quot;zWingSections&quot;:3,&quot;ySections&quot;:28}]" position="0 0 -1000" scale="0.5 0.5 0.5">
+      </a-shader-buildings>
+      <a-shader-buildings sun-position="-0.5 1.0 1.0" wall-src="#brick" wall-color="#675342" window-opacity="0.9" buildings="[{&quot;x&quot;:-10,&quot;z&quot;:-990,&quot;y&quot;:110,&quot;xCoreSections&quot;:6,&quot;xWingSections&quot;:5,&quot;zSections&quot;:10,&quot;zWingSections&quot;:4,&quot;ySections&quot;:30}]" position="707 0 -707" scale="0.5 0.5 0.5">
+      </a-shader-buildings>
+    </a-entity>
       
 
       <!-- Picked Up Button -->
@@ -238,6 +293,40 @@
         scale = " 1.479 1.479 1.479"
       ></a-entity>
 
+      <!---Banners-->
+      <!-- box -->
+      <a-entity>
+        <!-- image -->
+        <a-entity position="8.8287 3.69044 -4.65951" geometry="primitive: plane; width: 1.5" material="src: #music-banner" shadow="cast: false" rotation="0 -70.2016538484041 0.8313617607348245" scale="3.00997 1.04652 1"></a-entity>
+        <a-entity position="8.96752 3.70945 -4.67856" geometry="depth: 0.2; height: 1.2; width: 3" material="color: white" shadow="" rotation="0.4365938398896873 -70.19019469250149 0.8691769752134588" scale="1.59952 1 1"></a-entity>
+      </a-entity>
+     
+      <!-- box -->
+      <a-entity>
+        <a-entity position="0.66977 3.37062 -9.6628" geometry="primitive: plane; width: 1.5" material="shader: phong; color: #ffffff; emissive: #000000; emissiveIntensity: 1.74; specular: #000000; src: #reception-banner; shininess: 33.72; reflectivity: 4.97; refractionRatio: 0.28; normalScale: 0.94 1; displacementScale: 1.06; displacementBias: 0.65" shadow="cast: false" scale="2.95296 1.03549 1"></a-entity>
+        <a-entity position="0.72344 3.3844 -9.78213" geometry="depth: 0.2; height: 1.2; width: 3" material="color: white" shadow="" scale="1.6 1 1"></a-entity>
+      </a-entity>
+     
+      <!-- box -->
+      <a-entity>
+        <a-entity position="-8.79138 1.99686 -2.62799" geometry="primitive: plane; width: 1.5" material="src: #cryo-banner" shadow="cast: false" rotation="0 62.41700000000001 0" scale="2.65548 0.98526 1"></a-entity>
+        <a-entity position="-8.91404 1.97954 -2.68374" geometry="depth: 0.2; height: 1.2; width: 3" material="color: white" shadow="" scale="1.4 1 1" rotation="0 62.41687628596162 0"></a-entity>
+      </a-entity>
+      
+      <!-- box -->
+      <a-entity>
+        <a-entity position="-7.62079 3.08942 5.03576" geometry="primitive: plane; width: 1.5" material="src: #construction-banner" shadow="cast: false" rotation="-1.495 125.175 -0.83824" scale="2.78083 1.01411 1"></a-entity>
+        <a-entity position="-7.77321 3.07042 5.15439" geometry="depth: 0.2; height: 1.2; width: 3" material="color: white" shadow="" rotation="-1.4948468874963177 125.17523541782121 -0.8382372542763944" scale="1.5 1 1"></a-entity>
+      </a-entity>
+      
+      <!-- box -->
+      <a-entity>
+        <a-entity position="8.05305 3.11623 6.63714" geometry="primitive: plane; width: 1.5" material="shader: phong; emissive: #000000; src: #wardrobe-banner; shininess: 47.31" shadow="cast: false" rotation="0 -128.33624357355797 0" scale="2.86828 1.02548 1"></a-entity>
+        <a-entity position="8.17011 3.12434 6.7027" geometry="depth: 0.2; height: 1.2; width: 3" material="color: white" shadow="" scale="1.5 1 1" rotation="0 51.598860156096556 0"></a-entity>  
+      </a-entity>
+
+    
+      <!--Houses-->
       <a-entity
         gltf-model="#enviro-gltf"
         shadow="receive: true; cast: true"
@@ -246,14 +335,26 @@
        
       ></a-entity>
       
-      <a-entity environment="preset:yavapai"></a-entity>
+      <a-entity 
+      
+        environment="
+        preset: yavapai;
+        skyType: gradient;
+        skyColor: #1d3953;        
+        horizonColor: #aeb5c1;    
+        
+        ground: hills;
+        groundColor: #8B5A2B;
+        groundColor2: #DEB887;   
+        fog: 0.25;
+        shadow: true;"
+        ></a-entity>
 
       <a-entity
         gltf-model="#pond_glb"
         shadow="receive: true; cast: true"
-        scale="100 100 100 "
-        position="0 0 0
-    "
+        scale="1 1 1 "
+        position="0.858 0 0.380"
        
       ></a-entity>
 
@@ -263,9 +364,18 @@
       scale="1 1 1 "
       position="0.872 0.096 0.297"
      
-    ></a-entity>
+      ></a-entity>
+
       <a-entity
-        position="0.057 0.134 0"
+      gltf-model="#lampGlass_glb"
+      shadow="receive: true; cast: true"
+      scale="1 1 1 "
+      position="0.872 0.096 0.297"
+    
+      ></a-entity>
+
+      <a-entity
+        position="0 0 0"
         
         id="navmesh"
         gltf-model="#nav_gltf"
@@ -274,47 +384,26 @@
       ></a-entity>
 
 
-      <!-- sky and lights -->
-      <a-entity
-        light="type: hemisphere; color:#0E192B; groundColor:#1D0A57; intensity: 1.2"
-      ></a-entity>
-      <a-entity
-        id="moonlight"
-        position="11.5 8.5 -10.5"
-        rotation="75 142 160"
-        light="type:directional; color:#0E192B; intensity:15.0; castShadow:true; penumbra:0.4; angle:60.0; shadowMapHeight:512; shadowMapWidth:512;"
-      ></a-entity>
-
-      <a-entity
-        id="moon"
-        position="100.0 100.0 -100.0"
-        rotation="47 22 7"
-        gltf-model="#moon-gltf"
-        circles-material-override="src:#moonMap; side:front; shader:flat; flipTextureY:true;"
-      ></a-entity>
-
-      <a-entity
-        id="sky"
-        geometry="primitive:sphere; radius:500; segmentsWidth:9; segmentsHeight:18"
-        material="shader:flat; src:#skyMap; side:back; height:2048; width:2048"
-      ></a-entity>
+   
 
             <!-- Fire Button to trigger the fire -->
-      <a-entity geometry="primitive: box; width: 1; height: 2;" scale = " 1 1  0.721" material="color: blue;" position ="2.455 0.786 -9.017"></a-entity>
+      <a-entity geometry="primitive: box; width: 1; height: 2;" scale = " 1 1  0.721" material="color: #75e12d;" position ="2.588 0.463 -9.192"></a-entity>
       <a-entity 
       
       material="color: red;"
-      position="2.479 1.817 -8.974"
+      position="2.479 1.516 -9.222"
       circles-button
       id="fireButton"
       >
       <a-entity
       id="campfire_label"
-      circles-label="text:click here for light; visible:true; offset:1.0 0.140 0; arrow_position:left;"
+      circles-label="text:Click here for light!; visible:true; offset:0.750 0.140 0; arrow_position:left;"
       position="0.481 0.164 0.283"
       rotation = "33.590 -135.447 0 "
     ></a-entity>
       </a-entity>
+
+
 
 <!--checkpoints-->
 
@@ -323,7 +412,7 @@
 
 <a-entity circles-checkpoint 
 circles-spawnpoint
-position="0.878 0.4 -10.372" ></a-entity>
+position="0.878 0.035 -10.372" ></a-entity>
 
 <a-entity circles-checkpoint 
 position="-7.832 0.04 -5.440" ></a-entity>
@@ -386,31 +475,32 @@ position="-5.628 0.04 -2.494" ></a-entity>
       <a-entity position="0.0 1.5 0.0" animation="property:position; dur:163; to:0.0 1.55 0.0; loop:true; dir:alternate; easing:linear">
         <!-- Light -->
         <a-entity
-          light="type: point; color: #FFA200; intensity: 3.5; distance: 20.0; castShadow: true; shadowMapHeight: 256; shadowMapWidth: 256;"
+          light="type: point; color: #FFA200; decay: 0.5; intensity: 3.5; distance: 20.0; castShadow: true; shadowCameraFov :150.0; shadowMapHeight: 256; shadowMapWidth: 256;"
           animation="property:light.intensity; dur:293; dir:alternate; to:3.6; loop:true; easing:easeInOutExpo"
         >
           <!-- Fire Particle -->
           <a-entity
-            fire="particles: 25; size: 0.6; spread: 0.05; velocity: 0.05; opacity: 0.9"
-            sound="src: #fireCrackling-snd; autoplay: true; loop: true"
+            fire="particles: 25; size: 0.6; spread: 0.05; velocity: 0.05; opacity: 1.0"
+          
           ></a-entity>
         </a-entity>
       </a-entity>
     </a-entity>
   </a-entity>
+  
 
   <!-- Fire Spot 2 -->
-  <a-entity position="-5.752 1.405 -9.963">
+  <a-entity position="-5.752 1.405 -10.141">
     <a-entity animation="property:position; dur:223; to:0.0 0.0 0.05; loop:true; dir:alternate; easing:easeInOutExpo">
       <a-entity position="0.0 1.5 0.0" animation="property:position; dur:163; to:0.0 1.55 0.0; loop:true; dir:alternate; easing:linear">
         <a-entity
-          light="type: point; color: #FFA200; intensity: 2.5; distance: 10; castShadow: true; shadowMapHeight: 256; shadowMapWidth: 256;"
+          light="type: point; color: #FFA200;  decay: 0.5; intensity: 3.5; distance: 10; castShadow: true; shadowCameraFov :150.0; shadowMapHeight: 256; shadowMapWidth: 256;"
           animation="property:light.intensity; dur:293; dir:alternate; to:2.5; loop:true; easing:easeInOutExpo"
         >
 
           <a-entity
             fire="particles: 25; size: 0.6; spread: 0.05; velocity: 0.05; opacity: 0.9"
-            sound="src: #fireCrackling-snd; autoplay: true; loop: true"
+            
           ></a-entity>
         </a-entity>
       </a-entity>
@@ -422,12 +512,12 @@ position="-5.628 0.04 -2.494" ></a-entity>
     <a-entity animation="property:position; dur:223; to:0.0 0.0 0.05; loop:true; dir:alternate; easing:easeInOutExpo">
       <a-entity position="0.0 1.5 0.0" animation="property:position; dur:163; to:0.0 1.55 0.0; loop:true; dir:alternate; easing:linear">
         <a-entity
-          light="type: point; color: #FFA200; intensity: 3.5; distance: 20.0; castShadow: true; shadowMapHeight: 256; shadowMapWidth: 256;"
+          light="type: point; color: #FFA200;  decay: 0.5; intensity: 3.5; distance: 20.0; castShadow: true; shadowCameraFov :150.0; shadowMapHeight: 256; shadowMapWidth: 256;"
           animation="property:light.intensity; dur:293; dir:alternate; to:3.6; loop:true; easing:easeInOutExpo"
         >
           <a-entity
             fire="particles: 25; size: 0.6; spread: 0.05; velocity: 0.05; opacity: 0.9"
-            sound="src: #fireCrackling-snd; autoplay: true; loop: true"
+           
           ></a-entity>
         </a-entity>
       </a-entity>
@@ -435,16 +525,15 @@ position="-5.628 0.04 -2.494" ></a-entity>
   </a-entity>
 
   <!-- Fire Spot 4 -->
-  <a-entity position="-10.680 1.251 1.333">
+  <a-entity position="-10.680 1.441 1.333">
     <a-entity animation="property:position; dur:223; to:0.0 0.0 0.05; loop:true; dir:alternate; easing:easeInOutExpo">
       <a-entity position="0.0 1.5 0.0" animation="property:position; dur:163; to:0.0 1.55 0.0; loop:true; dir:alternate; easing:linear">
         <a-entity
-          light="type: point; color: #FFA200; intensity: 3.5; distance: 20.0; castShadow: true; shadowMapHeight: 256; shadowMapWidth: 256;"
+          light="type: point; color: #FFA200;  decay: 0.5; intensity: 3.5; distance: 20.0; castShadow: true; shadowCameraFov :96.0; shadowMapHeight: 256; shadowMapWidth: 256;"
           animation="property:light.intensity; dur:293; dir:alternate; to:3.6; loop:true; easing:easeInOutExpo"
         >
           <a-entity
             fire="particles: 25; size: 0.6; spread: 0.05; velocity: 0.05; opacity: 0.9"
-            sound="src: #fireCrackling-snd; autoplay: true; loop: true"
           ></a-entity>
         </a-entity>
       </a-entity>
@@ -467,9 +556,9 @@ position="-5.628 0.04 -2.494" ></a-entity>
 document.addEventListener("DOMContentLoaded", function () {
   // Get the fire button and fireRig entities using A-Frame's API
   const fireButton = document.getElementById("fireButton");
-  document.getElementById('ambient-light').setAttribute('light', 'intensity: 0.1'); // Darken ambient light
-  document.getElementById('moon-light').setAttribute('light', 'intensity: 0.1'); // Dim moonlight
   const fireRig = document.getElementById("fireRig");
+  const portals = document.getElementById("portals");
+  const envSound = document.getElementById("env_snd");
 
   // Ensure fireRig starts hidden
   fireRig.setAttribute("visible", false);
@@ -482,10 +571,23 @@ document.addEventListener("DOMContentLoaded", function () {
     // Toggle the visibility of the fireRig entity when the button is clicked
     if (isFireVisible === false) {
       fireRig.setAttribute("visible", true);
+      portals.setAttribute("visible", true);
       console.log("Fire is now ON!");
+
+      envSound.components.sound.playSound();
+     // Play ambient sound
+        
+        console.log("Sound is playing");
+    
     } else {
       fireRig.setAttribute("visible", false);
+      portals.setAttribute("visible", false);
       console.log("Fire is now OFF!");
+
+  
+      envSound.components.sound.stopSound();
+      console.log("Sound is stopped");
+       
     }
   });
 });

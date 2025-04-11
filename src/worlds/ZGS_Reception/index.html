@@ -9,6 +9,7 @@
     <script src="scripts/position-locker.js"></script>
     <script src="scripts/reception-carry-manager.js"></script>
     <script src="scripts/aframe_physics.js"></script>
+    <script src="scripts/howToPlay.js"></script>
   </head>
   <body>
     <circles-start-ui />
@@ -20,17 +21,139 @@
           src="/global/images/ZGS_room1.jpg"
           crossorigin="anonymous"
         />
+        <img
+        id="board"
+        src = "textures/board_texture.jpg"
+        crossorigin="anonymous"
+        />
+
+        <img
+        id="heading"
+        src = "textures/heading.png"
+        crossorigin="anonymous"
+        />
+
+        <img
+        id="heading2"
+        src = "textures/heading2.png"
+        crossorigin="anonymous"
+        />
+
+        <img
+        id="newsun"
+        src = "textures/newsun.png"
+        crossorigin="anonymous"
+        />
         <a-asset-item id="desk_model" src="assets/reception-desk.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="bowl_inactive_model" src="assets/bowl-inactive.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="bowl_active_model" src="assets/bowl-active.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="orb_inactive_model" src="assets/orb-inactive.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="orb_active_model" src="assets/orb-active.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="room_model" src="assets/room.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="pin_board" src="assets/Frame.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="instructions_1" src="assets/Poster1.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="instructions_2" src="assets/Poster2.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="instructions_3" src="assets/Poster3.glb" response-type="arraybuffer"></a-asset-item>
+        <audio
+          id="intro-snd"
+          src="assets/audio/intro.m4a"
+          preload="true"
+        ></audio>
+
+
+        <audio
+          id="moving-snd"
+          src="assets/audio/moving.m4a"
+          preload="true"
+        ></audio>
+
+        <audio
+          id="interaction-snd"
+          src="assets/audio/interaction.m4a"
+          preload="true"
+        ></audio>
+
+        <audio
+        id="ambient_music"
+        src="assets/audio/ambience.mp3"
+        preload="true"
+      ></audio>
+
         <circles-assets />
       </a-assets>
 
       <a-entity id="GameManager" carry-manager></a-entity>
-      <circles-manager-avatar />
+      <circles-manager-avatar  />
+
+      <!-- ambient music/sound -->
+      <a-entity circles-sound="type:music; src:#ambient_music; autoplay:true; loop:true; volume:0.08;"></a-entity>
+      
+      <!--Artifacts-->
+      <a-entity id="Poster1"
+      position="-4.406 1.579 -0.190" 
+      rotation="0 90 0" 
+      scale="1.4 1.4 1.4"
+      gltf-model="#instructions_3"
+      circles-artefact="
+          inspectPosition:      0.0 0.0 0.0;
+          inspectScale:         3.0 3.0 3.0;
+          inspectRotation:      0 0 0;
+          textRotationY:        90;
+          descrption_offset:    0 1 0;
+          description_on:       false;
+          desc_arrow_position:  down;
+          label_text:           Learn;
+          label_offset:         0 0.8 0;
+          label_on:             true;
+          label_arrow_position: down;
+
+          audio:                #intro-snd; 
+          volume:               0.2;" >
+      </a-entity>
+
+      <a-entity id="Poster2"
+      position="-4.406 1.579 -1.675" 
+      rotation="0 90 0" 
+      scale="1.4 1.4 1.4"
+      gltf-model="#instructions_2"
+      circles-artefact="
+          inspectPosition:      0.0 0.0 0.0;
+          inspectScale:         3.0 3.0 3.0;
+          inspectRotation:      0 0 0;
+          textRotationY:        90;
+          descrption_offset:    0 1 0;
+          description_on:       false;
+          desc_arrow_position:  down;
+          label_text:           Explore;
+          label_offset:         0 0.8 0;
+          label_on:             true;
+          label_arrow_position: down;
+
+          audio:                #moving-snd; 
+          volume:               0.2;" >
+      </a-entity>
+
+      <a-entity id="Poster3"
+      position="-4.406 1.579 -3.150" 
+      rotation="0 90 0" 
+      scale="1.4 1.4 1.4"
+      gltf-model="#instructions_1"
+      circles-artefact="
+          inspectPosition:      0.0 0.0 0.0;
+          inspectScale:         3.0 3.0 3.0;
+          inspectRotation:      0 0 0;
+          textRotationY:        90;
+          descrption_offset:    0 1 0;
+          description_on:       false;
+          desc_arrow_position:  down;
+          label_text:           Interact;
+          label_offset:         0 0.8 0;
+          label_on:             true;
+          label_arrow_position: down;
+
+          audio:                #interaction-snd; 
+          volume:               0.2;" >
+      </a-entity>
 
       <a-entity class="enviroment">
         <a-entity id="room" gltf-model="#room_model" position="0 0 -4" rotation="0 0 0" scale="1 0.7 1"
@@ -38,6 +161,14 @@
         <a-entity id="desk" gltf-model="#desk_model" position="-1 0 -4" rotation="0 0 0"></a-entity>
         <a-entity id="doorway" geometry="primitive:box; height:3; width:2;" material="color:black"
                   position="4.410 1.5 -1.604" rotation = "0 90 0"></a-entity>
+        <a-entity id="board" gltf-model="#pin_board" material="color: #000000" position="-4.52258 1.78841 -1.68239" rotation="0 180 0" scale="0.1 0.11879 0.16029"></a-entity>
+
+        <a-entity position="-4.488 1.7664 -1.65974" geometry="primitive: plane; width: 1.5" material="src: #board" shadow="cast: false" rotation="0 90 0" scale="3.16435 1.72203 1"></a-entity>
+        <a-entity id="board" geometry="primitive:box; height:3; width:2;" material="color:black"
+                  position="4.410 1.5 -1.604" rotation = "0 90 0"></a-entity>
+        <a-entity id="heading1" position="-4.48756 3.44792 -1.65974" geometry="primitive: plane; width: 1.5" material="src: #heading" shadow="cast: false" rotation="0 90 0" scale="2.56826 1.19441 1"></a-entity>
+        <a-entity id="heading2" position="0 2.955 -6.742" geometry="primitive: plane; width: 1.5" material="src: #heading2" shadow="cast: false" rotation="0 0 0" scale="4 4 5"></a-entity>
+        <a-entity id="poster" position="2.640 2.888 -4.396" geometry="primitive: plane; width: 1.5" material="src: #newsun" shadow="cast: false" rotation="-11.189 -31.078 1.638" scale="1.610 3.700 1"visible ="false"></a-entity>
       </a-entity>
 
       <a-entity class="important-items">
@@ -53,7 +184,19 @@
           orb-placement-checker="expectedOrbId: orb">
         </a-entity>
 
+
+        <a-entity id="description_box" position="-2.537 2.348 -4.106" rotation="0 0 0" scale = "0.9 0.9 0.9 "
+          circles-description=" title_text_front:       Orb Tutorial;
+                                description_text_front: Click here to learn how to interact with objects!;
+                                title_text_back:       Activate the hub door!;
+                                description_text_back:  Using your mouse, vr joystick or thumb to click on the orb and using the interaction panel placed at the bottom of the screen release it over the bowl to activate the portal to our main neighbourhood - Sunrise Superbia!;
+                                offset:                 2 0 0;
+                                yOffset: 0.11
+                                arrow_position:         down;
+                                lookAtCamera            :false; "></a-entity>
+        
         <!-- Orb with position-locker -->
+
         <a-entity 
           id="orb" 
           gltf-model="#orb_active_model" 
@@ -81,16 +224,45 @@
         </a-entity>
       </a-entity>
 
+      <a-entity id="instructions" circles-label="text:Info Book" position="1.237 1.22054 -4.42438" toggle-poster>
+      </a-entity>
+      
       <a-entity
         id="link_hub"
         position="3.900 1.5 -1.604"
         rotation="0 -180 0"
         scale="0.100 0.950 1.010"
-        circles-portal="img_src:#link_1_360; title_text:Welcome to Sunrise Superbia!; link_url:/w/ZGS"
+        circles-portal="img_src:#link_1_360; title_text:Welcome to Superbia!; link_url:/w/ZGS"
         shadow
         visible = "false"
       ></a-entity>
       
+      <!--checkpoints-->
+      
+
+      <a-entity circles-checkpoint 
+      circles-spawnpoint
+      position="0 0 0 " ></a-entity>
+
+      <a-entity circles-checkpoint 
+      position="-2.496 0.024 -0.230" ></a-entity>
+
+      
+      <a-entity circles-checkpoint 
+      position="-2.496 0.024 -1.593" ></a-entity>
+      
+      <a-entity circles-checkpoint 
+      position="-2.496 0.014 -3.293" ></a-entity>
+
+      
+      <a-entity circles-checkpoint 
+      position="-1.195 0.024 -2.941" ></a-entity>
+
+      <a-entity circles-checkpoint 
+      position="2.531 0.024 -1.460" ></a-entity>
+
+      <a-entity circles-checkpoint 
+      position="0 0 0 " ></a-entity>
 
     </a-scene>
 
