@@ -48,39 +48,54 @@ AFRAME.registerComponent("carry-manager", {
     };
     const params = CONTEXT_AF.getParams(window.location.href);
 
-    // if (params.hasOwnProperty("carry")) {
-    //   if (params["carry"] === "on") {
-    //     //DO SEED STUFF HERE :)
-    //     console.log("Carry component is on!");
-    //     CONTEXT_AF.setSeedURL(params["carry"]);
-    //   } else if (
-    //     params["carry"] === "seedA" ||
-    //     params["carry"] === "seedB" ||
-    //     params["carry"] === "seedC"
-    //   ) {
-    //     console.log("Carry component is: " + params["carry"]);
-    //     // try on load event
-    //     // if (CIRCLES.isCirclesWebsocketReady()) {
-    //     //   CONTEXT_AF.seed.click()
-    //     // }
-    //     // CONTEXT_AF.el.sceneEl.addEventListener(
-    //     //   CIRCLES.EVENTS.OBJECT_NETWORKED_ATTACHED,
-    //     //   CONTEXT_AF.seed.click()
-    //     // );
 
-    //     // else
-    //     setTimeout(function () {
-    //       CONTEXT_AF.seed.click();
-    //     }, 3000);
-    //     CONTEXT_AF.setSeedURL(params["carry"]);
-    //   } else if (params["carry"] === "test") {
-    //     console.log("Carry component is: " + params["carry"]);
-    //     CONTEXT_AF.setSeedURL("tested");
-    //   } else {
-    //     console.log("Carry component is off. :(");
-    //     CONTEXT_AF.setSeedURL("off");
-    //   }
-    // }
+    if (params.hasOwnProperty("hubState")) {
+      if (params["hubState"] === "env") {
+        //DO HUB STUFF HERE :)
+        console.log("Env change is on!");
+        CONTEXT_AF.setHubURL(params["hubState"]);
+      } else if (params["hubState"] === "house") {
+        //DO HUB STUFF HERE :)
+        console.log("House change is on!");
+        CONTEXT_AF.setHubURL(params["hubState"]);
+      } else {
+        console.log("Env/house change is off...");
+      }
+    }
+    if (params.hasOwnProperty("carry")) {
+      if (params["carry"] === "on") {
+        //DO SEED STUFF HERE :)
+        console.log("Carry component is on!");
+        CONTEXT_AF.setSeedURL(params["carry"]);
+      } else if (
+        params["carry"] === "seedA" ||
+        params["carry"] === "seedB" ||
+        params["carry"] === "seedC"
+      ) {
+        console.log("Carry component is: " + params["carry"]);
+        // try on load event
+        // if (CIRCLES.isCirclesWebsocketReady()) {
+        //   CONTEXT_AF.seed.click()
+        // }
+        // CONTEXT_AF.el.sceneEl.addEventListener(
+        //   CIRCLES.EVENTS.OBJECT_NETWORKED_ATTACHED,
+        //   CONTEXT_AF.seed.click()
+        // );
+
+        // else
+        setTimeout(function () {
+          CONTEXT_AF.seed.click();
+        }, 3000);
+        CONTEXT_AF.setSeedURL(params["carry"]);
+      } else if (params["carry"] === "test") {
+        console.log("Carry component is: " + params["carry"]);
+        CONTEXT_AF.setSeedURL("tested");
+      } else {
+        console.log("Carry component is off. :(");
+        CONTEXT_AF.setSeedURL("off");
+      }
+    }
+
     //event listener for picking up the seed.
     CONTEXT_AF.seed.addEventListener(
       CIRCLES.EVENTS.PICKUP_THIS_OBJECT,
@@ -112,8 +127,12 @@ AFRAME.registerComponent("carry-manager", {
     url.searchParams.set("carry", seedID);
     history.replaceState(history.state, "", url.href);
   },
-  // //add this property to allow the fire to still be on when coming back
-  // let url = new URL(window.location.href);
-  // url.searchParams.set('fire', (turnOn) ? 'on' : 'off');
-  // history.replaceState(history.state, '', url.href);
+  setHubURL: function (hubID) {
+    const CONTEXT_AF = this;
+
+    //add this property to allow the seed to still be in hand when coming back
+    let url = new URL(window.location.href);
+    url.searchParams.set("hubState", hubID);
+    history.replaceState(history.state, "", url.href);
+  },
 });
