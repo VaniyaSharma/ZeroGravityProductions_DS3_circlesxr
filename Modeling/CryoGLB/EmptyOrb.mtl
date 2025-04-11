@@ -1,0 +1,52 @@
+# Blender 4.4.0 MTL File: 'Free GLTF Compatible Glass .blend'
+# www.blender.org
+
+newmtl Glass
+Ns 360.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Material.001
+Ns 204.987930
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Users/rowan/source/repos/ZeroGravityProductions_DS3_circlesxr/Modeling/CryoModels/frog (1)/textures/Material.005_Base_Color.png
+
+newmtl Material.002
+Ns 177.459839
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Users/rowan/source/repos/ZeroGravityProductions_DS3_circlesxr/Modeling/CryoModels/plants-ready/textures/Albedo.png
+
+newmtl Material.003
+Ns 99.200180
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Users/rowan/source/repos/ZeroGravityProductions_DS3_circlesxr/Modeling/CryoModels/tiny-frog/textures/frog_diffuse.png
+
+newmtl Material.004
+Ns 106.779724
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+map_Kd C:/Users/rowan/source/repos/ZeroGravityProductions_DS3_circlesxr/Modeling/CryoModels/gear-cog/textures/Gear_Diff.png

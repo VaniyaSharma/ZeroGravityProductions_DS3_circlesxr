@@ -12,8 +12,6 @@
     <script src="js/hub-carry-manager.js"></script>
     <script src="js/fire.js"></script>
     <script src="https://unpkg.com/aframe-shader-buildings@^2.0.0/dist/main.js"></script>
-   
-    
   </head>
   <body>
     <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
@@ -78,6 +76,12 @@
           response-type="arraybuffer"
         ></a-asset-item>
 
+        <a-asset-item
+          id="newenviron_glb"
+          src="assets/protopianLayout.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
         
 
         <a-asset-item
@@ -116,12 +120,17 @@
         ></a-asset-item>
 
         <a-asset-item>
-          <a-asset-item id="campfire-gltf" src="assets/campfire.glb"></a-asset-item>
+          <a-asset-item
+            id="campfire-gltf"
+            src="assets/campfire.glb"
+          ></a-asset-item>
         </a-asset-item>
         <a-asset-item>
-          <img id="brick" src="./assets/TexturesCom_Wall_BrickPlain1_512_albedo.jpg">
-      </a-asset-item>
-      
+          <img
+            id="brick"
+            src="./assets/TexturesCom_Wall_BrickPlain1_512_albedo.jpg"
+          />
+        </a-asset-item>
 
         <audio
           id="env-snd"
@@ -214,7 +223,7 @@
       
 
       <!-- Picked Up Button -->
-      <a-entity
+      <!-- <a-entity
         geometry="primitive: plane; width: 1; height: 0.5;"
         material="color: green;"
         position="-1 1 -3"
@@ -226,10 +235,10 @@
           align="center"
           position="0 0 0.1"
         ></a-text>
-      </a-entity>
+      </a-entity> -->
 
       <!-- Position Locked Button -->
-      <a-entity
+      <!-- <a-entity
         geometry="primitive: plane; width: 1; height: 0.5;"
         material="color: blue;"
         position="1 1 -3"
@@ -241,14 +250,14 @@
           align="center"
           position="0 0 0.1"
         ></a-text>
-      </a-entity>
+      </a-entity> -->
 
       <!-- <a-entity circles-button="pedastal_color:rgb(74, 87, 95);" circles-sendpoint="target:#door;" position="1 1 -3" rotation="90 0 0" scale="0.8 0.8 0.8"></a-entity> -->
 
       <a-entity
         id="seed"
         gltf-model="#seed_glb"
-        position="0 1 -2"
+        position="0 200 -2"
         circles-pickup-object="animate:false;"
         circles-interactive-object="type:highlight;"
         circles-pickup-networked
@@ -256,41 +265,17 @@
         pickup-detector
       ></a-entity>
 
-      <!-- Picked Up Button -->
       <a-entity
-        geometry="primitive: plane; width: 1; height: 0.5;"
-        material="color: green;"
-        position="-1 1 -3"
-        circles-button
-        emit-pickedup
-      >
-        <a-text
-          value="Trigger Picked Up"
-          align="center"
-          position="0 0 0.1"
-        ></a-text>
-      </a-entity>
-
-      <!-- Position Locked Button -->
-      <a-entity
-        geometry="primitive: plane; width: 1; height: 0.5;"
-        material="color: blue;"
-        position="1 1 -3"
-        circles-button
-        emit-positionlocked
-      >
-        <a-text
-          value="Trigger Position Locked"
-          align="center"
-          position="0 0 0.1"
-        ></a-text>
-      </a-entity>
-
-      <a-entity
+        id="pedestal"
         gltf-model="#pedestal_glb"
         shadow="receive: true; cast: true"
         position="0.781 0.888 0.436"
-        scale = " 1.479 1.479 1.479"
+        scale=" 1.479 1.479 1.479"
+      >
+      <a-entity
+        id="collider"
+        position="0 0.800 0"
+        collider  
       ></a-entity>
 
       <!---Banners-->
@@ -328,14 +313,20 @@
     
       <!--Houses-->
       <a-entity
+        id="oldHouse"
         gltf-model="#enviro-gltf"
         shadow="receive: true; cast: true"
         scale="1 1 1 "
         position="0.473 -0.034 -1.589"
-       
+      ></a-entity>
+
+      <a-entity 
+        id="oldEnv"
+        environment="preset:yavapai"
       ></a-entity>
       
       <a-entity 
+      id="oldEnv"
       
         environment="
         preset: yavapai;
@@ -407,65 +398,56 @@
 
 <!--checkpoints-->
 
-<!-- spawn point -->
-<a-entity id="spawnPoint" position="0 0.668 0"></a-entity>
+      <!-- spawn point -->
+      <a-entity id="spawnPoint" position="0 0.668 0"></a-entity>
 
 <a-entity circles-checkpoint 
 circles-spawnpoint
 position="0.878 0.035 -10.372" ></a-entity>
 
-<a-entity circles-checkpoint 
-position="-7.832 0.04 -5.440" ></a-entity>
+      <a-entity circles-checkpoint position="-7.832 0.04 -5.440"></a-entity>
 
-<a-entity circles-checkpoint 
-position="9.474 0.04 -6.530" ></a-entity>
+      <a-entity circles-checkpoint position="9.474 0.04 -6.530"></a-entity>
 
-<a-entity circles-checkpoint 
-position="5.422 0.04 10.554" ></a-entity>
+      <a-entity circles-checkpoint position="5.422 0.04 10.554"></a-entity>
 
-<a-entity circles-checkpoint 
-position="-4.979 0.04 -5.879" ></a-entity>
+      <a-entity circles-checkpoint position="-4.979 0.04 -5.879"></a-entity>
 
-<a-entity circles-checkpoint 
-position="-1.442 0.04 -7.163" ></a-entity>
+      <a-entity circles-checkpoint position="-1.442 0.04 -7.163"></a-entity>
 
-<a-entity circles-checkpoint 
-position="2.041 0.04 -6.922" ></a-entity>
+      <a-entity circles-checkpoint position="2.041 0.04 -6.922"></a-entity>
 
-<a-entity circles-checkpoint 
-position="6.526 0.04 -4.787" ></a-entity>
+      <a-entity circles-checkpoint position="6.526 0.04 -4.787"></a-entity>
 
-<a-entity circles-checkpoint 
-position="7.905 0.04 -0.706" ></a-entity>
+      <a-entity circles-checkpoint position="7.905 0.04 -0.706"></a-entity>
 
-<a-entity circles-checkpoint 
-position="7.376 0.04 2.590" ></a-entity>
+      <a-entity circles-checkpoint position="7.376 0.04 2.590"></a-entity>
 
-<a-entity circles-checkpoint 
-position="6.541 0.04 5.744" ></a-entity>
+      <a-entity circles-checkpoint position="6.541 0.04 5.744"></a-entity>
 
-<a-entity circles-checkpoint 
-position="2.211 0.04 7.560" ></a-entity>
+      <a-entity circles-checkpoint position="2.211 0.04 7.560"></a-entity>
 
-<a-entity circles-checkpoint 
-position="-1.776 0.04 7.238" ></a-entity>
+      <a-entity circles-checkpoint position="-1.776 0.04 7.238"></a-entity>
 
-<a-entity circles-checkpoint 
-position="-4.613 0.04 5.628" ></a-entity>
+      <a-entity circles-checkpoint position="-4.613 0.04 5.628"></a-entity>
 
-<a-entity circles-checkpoint 
-position="-5.472 0.04 1.737" ></a-entity>
+      <a-entity circles-checkpoint position="-5.472 0.04 1.737"></a-entity>
 
-<a-entity circles-checkpoint 
-position="-5.628 0.04 -2.494" ></a-entity>
+      <a-entity circles-checkpoint position="-5.628 0.04 -2.494"></a-entity>
 
-
-
-
-
-<!-- Add initial moonlight effect -->
-<a-entity id="ambient-light" light="type: ambient; color: #3A3D3F; intensity: 0.3" position="0 2 0"></a-entity> <!-- Dim moonlight effect -->
-<a-entity id="moon-light" light="type: directional; color: #F3F7F6; intensity: 0.5; castShadow: true" position="10 10 -10"></a-entity> <!-- Directional moonlight -->
+      <!-- Add initial moonlight effect -->
+      <a-entity
+        id="ambient-light"
+        light="type: ambient; color: #3A3D3F; intensity: 0.3"
+        position="0 2 0"
+      ></a-entity>
+      <!-- Dim moonlight effect -->
+      <a-entity
+        id="moon-light"
+        light="type: directional; color: #F3F7F6; intensity: 0.5; castShadow: true"
+        position="10 10 -10"
+      ></a-entity>
+      <!-- Directional moonlight -->
 
 <!-- fire FX -->
 <a-entity id="fireRig" visible="false">
@@ -560,13 +542,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const portals = document.getElementById("portals");
   const envSound = document.getElementById("env_snd");
 
-  // Ensure fireRig starts hidden
-  fireRig.setAttribute("visible", false);
+      // Ensure fireRig starts hidden
+      fireRig.setAttribute("visible", false);
 
-  // Add an event listener to the fireButton
-  fireButton.addEventListener("click", function () {
-    // Get the current visibility state of fireRig
-    const isFireVisible = fireRig.getAttribute("visible");
+      // Add an event listener to the fireButton
+      fireButton.addEventListener("click", function () {
+        // Get the current visibility state of fireRig
+        const isFireVisible = fireRig.getAttribute("visible");
 
     // Toggle the visibility of the fireRig entity when the button is clicked
     if (isFireVisible === false) {

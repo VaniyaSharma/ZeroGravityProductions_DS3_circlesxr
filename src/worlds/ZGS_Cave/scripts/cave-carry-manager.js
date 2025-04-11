@@ -48,7 +48,6 @@ AFRAME.registerComponent("carry-manager", {
     };
     const params = CONTEXT_AF.getParams(window.location.href);
 
-
     if (params.hasOwnProperty("hubState")) {
       if (params["hubState"] === "env") {
         //DO HUB STUFF HERE :)
@@ -62,6 +61,7 @@ AFRAME.registerComponent("carry-manager", {
         console.log("Env/house change is off...");
       }
     }
+
     if (params.hasOwnProperty("carry")) {
       if (params["carry"] === "on") {
         //DO SEED STUFF HERE :)
@@ -83,10 +83,10 @@ AFRAME.registerComponent("carry-manager", {
         // );
 
         // else
-        setTimeout(function () {
-          CONTEXT_AF.seed.click();
-        }, 3000);
-        CONTEXT_AF.setSeedURL(params["carry"]);
+        // setTimeout(function () {
+        //   CONTEXT_AF.seed.click();
+        // }, 3000);
+        // CONTEXT_AF.setSeedURL(params["carry"]);
       } else if (params["carry"] === "test") {
         console.log("Carry component is: " + params["carry"]);
         CONTEXT_AF.setSeedURL("tested");
@@ -133,6 +133,14 @@ AFRAME.registerComponent("carry-manager", {
     //add this property to allow the seed to still be in hand when coming back
     let url = new URL(window.location.href);
     url.searchParams.set("hubState", hubID);
+    history.replaceState(history.state, "", url.href);
+  },
+  setCaveURL: function (caveID) {
+    const CONTEXT_AF = this;
+
+    //add this property to allow the seed to still be in hand when coming back
+    let url = new URL(window.location.href);
+    url.searchParams.set("caveState", caveID);
     history.replaceState(history.state, "", url.href);
   },
 });

@@ -18,17 +18,6 @@ AFRAME.registerComponent("carry-manager", {
     //get seed
     CONTEXT_AF.seed = scene.querySelector("#seed");
 
-    // CONTEXT_AF.seed.addEventListener("click", console.log("SEED CLICK")); //WHY ISN'T IT WORKING?
-
-    // CONTEXT_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, wsReadyFunc);
-
-    // For picking up in cryopod experience - event listener for clicking the seed, or using the following event from circles-pickup-object
-    // CONTEXT_AF.el.emit(CIRCLES.EVENTS.PICKUP_THIS_OBJECT, {sendNetworkEvent:sendNetworkEvent}, true);
-
-    // setTimeout(function () {
-    //   CONTEXT_AF.seed.click();
-    // }, 3000);
-
     const params_orig = new URLSearchParams(window.location.search);
 
     //ripped from Anthony's source code! thanks anthony <3
@@ -48,19 +37,19 @@ AFRAME.registerComponent("carry-manager", {
     };
     const params = CONTEXT_AF.getParams(window.location.href);
 
-    if (params.hasOwnProperty("hubState")) {
-      if (params["hubState"] === "env") {
-        //DO HUB STUFF HERE :)
-        console.log("Env change is on!");
-        CONTEXT_AF.setHubURL(params["hubState"]);
-      } else if (params["hubState"] === "house") {
-        //DO HUB STUFF HERE :)
-        console.log("House change is on!");
-        CONTEXT_AF.setHubURL(params["hubState"]);
-      } else {
-        console.log("Env/house change is off...");
-      }
-    }
+    // if (params.hasOwnProperty("hubState")) {
+    //   if (params["hubState"] === "env") {
+    //     //DO HUB STUFF HERE :)
+    //     console.log("Env change is on!");
+    //     CONTEXT_AF.setHubURL(params["hubState"]);
+    //   } else if (params["hubState"] === "house") {
+    //     //DO HUB STUFF HERE :)
+    //     console.log("House change is on!");
+    //     CONTEXT_AF.setHubURL(params["hubState"]);
+    //   } else {
+    //     console.log("Env/house change is off...");
+    //   }
+    // }
     if (params.hasOwnProperty("carry")) {
       if (params["carry"] === "on") {
         //DO SEED STUFF HERE :)

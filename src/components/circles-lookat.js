@@ -5,7 +5,9 @@ AFRAME.registerComponent('circles-lookat', {
     targetElement:  {type:'selector', default:null},
     enabled:        {type:'boolean',  default:true},
     constrainYAxis: {type:'boolean',  default:true},
-    updateRate:     {type:'number',   default:200},   //in ms
+    constrainXAxis: {type:'boolean',  default:false},  // ZGS: Created new schema to constrain the x-axis
+    constrainZAxis: {type:'boolean',  default:false},  // ZGS: Created new schema to constrain the z-axis
+    updateRate:     {type:'number',   default:200},    //in ms
     smoothingOn:    {type:'boolean',  default:true},
     smoothingAlpha: {type:'float',    default:0.05}
   },
@@ -39,9 +41,18 @@ AFRAME.registerComponent('circles-lookat', {
 
         if (this.data.smoothingOn !== true) {
           this.worldPos.set(this.targetWorldPos.x, this.targetWorldPos.y, this.targetWorldPos.z);
+          
+          // Apply constraints
           if (this.data.constrainYAxis === true) {
             this.worldPos.y = this.originalPos.y;
           }
+          if (this.data.constrainXAxis === true) {
+            this.worldPos.x = this.originalPos.x;
+          }
+          if (this.data.constrainZAxis === true) {
+            this.worldPos.z = this.originalPos.z;
+          }
+          
           this.el.object3D.lookAt(this.worldPos);
         }
         
@@ -49,9 +60,18 @@ AFRAME.registerComponent('circles-lookat', {
       }
       else if (this.data.smoothingOn === true) {
         this.worldPos.lerp(this.targetWorldPos, this.data.smoothingAlpha);
+        
+        // Apply constraints
         if (this.data.constrainYAxis === true) {
           this.worldPos.y = this.originalPos.y;
         }
+        if (this.data.constrainXAxis === true) {
+          this.worldPos.x = this.originalPos.x;
+        }
+        if (this.data.constrainZAxis === true) {
+          this.worldPos.z = this.originalPos.z;
+        }
+
         this.el.object3D.lookAt(this.worldPos);
       }
     }
