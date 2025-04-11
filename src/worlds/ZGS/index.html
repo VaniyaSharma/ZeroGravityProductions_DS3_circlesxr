@@ -48,6 +48,12 @@
         ></a-asset-item>
 
         <a-asset-item
+          id="newenviron_glb"
+          src="assets/protopianLayout.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
+        <a-asset-item
           id="moon-gltf"
           src="/worlds/Campfire/assets/models/moon.glb"
           response-type="arraybuffer"
@@ -209,20 +215,31 @@
       ></a-entity>
 
       <a-entity
+        id="pedestal"
         gltf-model="#pedestal_glb"
         shadow="receive: true; cast: true"
         position="0.781 0.888 0.436"
         scale=" 1.479 1.479 1.479"
+      >
+      <a-entity
+        id="collider"
+        position="0 0.800 0"
+        collider  
       ></a-entity>
+      </a-entity>
 
       <a-entity
+        id="oldHouse"
         gltf-model="#enviro-gltf"
         shadow="receive: true; cast: true"
         scale="1 1 1 "
         position="0.473 -0.034 -1.589"
       ></a-entity>
 
-      <a-entity environment="preset:yavapai"></a-entity>
+      <a-entity 
+        id="oldEnv"
+        environment="preset:yavapai"
+      ></a-entity>
 
       <a-entity
         gltf-model="#pond_glb"

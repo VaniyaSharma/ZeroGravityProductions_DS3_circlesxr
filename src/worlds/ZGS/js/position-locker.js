@@ -217,7 +217,51 @@ function changeHouse() {
   console.log("House Function being called.");
   if (!houseBool) {
     // Put house animation here
+    const scene = document.querySelector("a-scene");
 
+    // Get the current (old) house model
+    const oldHouse = document.querySelector("[gltf-model='#enviro-gltf']");
+    if (!oldHouse) {
+      console.error("Old house model not found!");
+      return;
+    }
+
+    // Ensure old house is using transparent material
+    oldHouse.setAttribute("material", "transparent: true; opacity: 1");
+
+    // Create the new house and set initial opacity to 0
+    const newHouse = document.createElement("a-entity");
+    newHouse.setAttribute("id", "newHouse");
+    newHouse.setAttribute("gltf-model", "#newenviron_glb");
+    newHouse.setAttribute("position", "0.473 -0.034 -1.589");
+    newHouse.setAttribute("scale", "1 1 1");
+    newHouse.setAttribute("shadow", "receive: true; cast: true");
+    newHouse.setAttribute("material", "transparent: true; opacity: 0");
+    scene.appendChild(newHouse);
+
+    // Fade out the old house
+    oldHouse.setAttribute("animation__fadeout", {
+      property: "material.opacity",
+      to: 0,
+      dur: 1500,
+      easing: "easeInOutQuad"
+    });
+
+    // Fade in the new house
+    newHouse.setAttribute("animation__fadein", {
+      property: "material.opacity",
+      to: 1,
+      dur: 1500,
+      easing: "easeInOutQuad"
+    });
+
+    // Delete the old house after fade out is done
+    setTimeout(() => {
+      if (oldHouse.parentNode) {
+        oldHouse.parentNode.removeChild(oldHouse);
+        console.log("Old house removed from scene.");
+      }
+    }, 1600); // slightly longer than animation duration
     houseBool = true;
   }
 }
@@ -227,6 +271,28 @@ function changeHouseInstant() {
   if (!houseBool) {
     // Put house animation here
 
+    const scene = document.querySelector("a-scene");
+    // Get the current (old) house model
+    const oldHouse = document.querySelector("[gltf-model='#enviro-gltf']");
+    if (!oldHouse) {
+      console.error("Old house model not found!");
+      return;
+    }
+
+    // Create the new house
+    const newHouse = document.createElement("a-entity");
+    newHouse.setAttribute("id", "newHouse");
+    newHouse.setAttribute("gltf-model", "#newenviron_glb");
+    newHouse.setAttribute("position", "0.473 -0.034 -1.589");
+    newHouse.setAttribute("scale", "1 1 1");
+    newHouse.setAttribute("shadow", "receive: true; cast: true");
+    scene.appendChild(newHouse);
+
+    // Delete the old house after fade out is done
+    if (oldHouse.parentNode) {
+      oldHouse.parentNode.removeChild(oldHouse);
+      console.log("Old house removed from scene.");
+    }
     houseBool = true;
   }
 }
