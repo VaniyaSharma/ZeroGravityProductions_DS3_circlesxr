@@ -233,7 +233,7 @@ function changeHouse() {
     const newHouse = document.createElement("a-entity");
     newHouse.setAttribute("id", "newHouse");
     newHouse.setAttribute("gltf-model", "#newenviron_glb");
-    newHouse.setAttribute("position", "0.473 -0.034 -1.589");
+    newHouse.setAttribute("position", "0.595 0.028 0.229");
     newHouse.setAttribute("scale", "1 1 1");
     newHouse.setAttribute("shadow", "receive: true; cast: true");
     newHouse.setAttribute("material", "transparent: true; opacity: 0");
@@ -283,7 +283,7 @@ function changeHouseInstant() {
     const newHouse = document.createElement("a-entity");
     newHouse.setAttribute("id", "newHouse");
     newHouse.setAttribute("gltf-model", "#newenviron_glb");
-    newHouse.setAttribute("position", "0.473 -0.034 -1.589");
+    newHouse.setAttribute("position", "0.595 0.028 0.229");
     newHouse.setAttribute("scale", "1 1 1");
     newHouse.setAttribute("shadow", "receive: true; cast: true");
     scene.appendChild(newHouse);
