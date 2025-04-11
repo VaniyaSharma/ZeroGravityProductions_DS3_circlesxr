@@ -211,6 +211,7 @@ AFRAME.registerComponent("puzzle-button-trigger", {
 
           seed.addEventListener("click", function () {
             url.searchParams.set("cryoState", "done");
+            url.searchParams.set("carry", "seedC");
             history.replaceState(history.state, "", url.href);
           });
         } else {

@@ -68,6 +68,7 @@ function melodyComplete() {
     }, 11000);
 
     url.searchParams.set("caveState", "seed");
+    url.searchParams.set("carry", "seedB");
     history.replaceState(history.state, "", url.href);
   } else if (
     paramsX.hasOwnProperty("caveState") &&

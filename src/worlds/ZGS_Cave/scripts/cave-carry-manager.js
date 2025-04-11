@@ -101,7 +101,7 @@ AFRAME.registerComponent("carry-manager", {
       CIRCLES.EVENTS.PICKUP_THIS_OBJECT,
       function () {
         console.log("Seed picked up!");
-        CONTEXT_AF.setSeedURL("seedB");
+        // CONTEXT_AF.setSeedURL("seedB"); //idk why it isnt working?
       }
     );
 
@@ -110,7 +110,7 @@ AFRAME.registerComponent("carry-manager", {
       CIRCLES.EVENTS.RELEASE_THIS_OBJECT,
       function () {
         console.log("Seed released!");
-        CONTEXT_AF.setSeedURL("off");
+        // CONTEXT_AF.setSeedURL("off");
       }
     );
   },
@@ -126,6 +126,7 @@ AFRAME.registerComponent("carry-manager", {
     let url = new URL(window.location.href);
     url.searchParams.set("carry", seedID);
     history.replaceState(history.state, "", url.href);
+    // console.log("seed URL set.");
   },
   setHubURL: function (hubID) {
     const CONTEXT_AF = this;
@@ -135,12 +136,12 @@ AFRAME.registerComponent("carry-manager", {
     url.searchParams.set("hubState", hubID);
     history.replaceState(history.state, "", url.href);
   },
-  setCaveURL: function (caveID) {
-    const CONTEXT_AF = this;
+  // setCaveURL: function (caveID) {
+  //   const CONTEXT_AF = this;
 
-    //add this property to allow the seed to still be in hand when coming back
-    let url = new URL(window.location.href);
-    url.searchParams.set("caveState", caveID);
-    history.replaceState(history.state, "", url.href);
-  },
+  //   //add this property to allow the seed to still be in hand when coming back
+  //   let url = new URL(window.location.href);
+  //   url.searchParams.set("caveState", caveID);
+  //   history.replaceState(history.state, "", url.href);
+  // },
 });

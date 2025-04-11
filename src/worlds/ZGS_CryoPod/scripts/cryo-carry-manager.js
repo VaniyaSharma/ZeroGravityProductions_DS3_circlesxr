@@ -99,7 +99,7 @@ AFRAME.registerComponent("carry-manager", {
       CIRCLES.EVENTS.PICKUP_THIS_OBJECT,
       function () {
         console.log("Seed picked up!");
-        CONTEXT_AF.setSeedURL("seedC");
+        // CONTEXT_AF.setSeedURL("seedC"); //idk why it isnt working??
       }
     );
 
@@ -108,7 +108,7 @@ AFRAME.registerComponent("carry-manager", {
       CIRCLES.EVENTS.RELEASE_THIS_OBJECT,
       function () {
         console.log("Seed released!");
-        CONTEXT_AF.setSeedURL("off");
+        // CONTEXT_AF.setSeedURL("off");
       }
     );
   },
